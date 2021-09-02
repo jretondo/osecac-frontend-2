@@ -16,7 +16,6 @@ export const UseSecureRoutes = (url, call) => {
                 })
                 let data = await res.json()
                 const status = parseInt(data.status)
-                console.log(`data`, data)
                 if (status === 200) {
                     setLoading(false)
                 } else {
@@ -35,6 +34,5 @@ export const UseSecureRoutes = (url, call) => {
         }
         // eslint-disable-next-line
     }, [call])
-    console.log(`error`, error)
     return { loading, error }
 }

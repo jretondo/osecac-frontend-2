@@ -12,6 +12,7 @@ import axios from 'axios'
 import UrlNodeServer from '../../../../api/NodeServer'
 import FileSaver from 'file-saver'
 import { headerAtorizarion } from '../../../../api/headerToken'
+import moment from 'moment'
 const FilaProducto = ({
     id,
     item,
@@ -33,12 +34,9 @@ const FilaProducto = ({
 
     const DescargarExtr = async (e, fecha) => {
         e.preventDefault()
-        const datos = {
-            desde: fecha,
-            hasta: fecha
-        }
+        const datos = `?desde=${fecha}&hasta=${fecha}`
         setEsperar(true)
-        await axios.post(UrlNodeServer.DescargarPDF, datos, {
+        await axios.get(UrlNodeServer.extractosDownload + datos, {
             responseType: 'arraybuffer',
             headers: {
                 'x-access-token': localStorage.getItem("loginInfo"),
@@ -56,7 +54,8 @@ const FilaProducto = ({
                 setSuccessAlert(true)
                 setAlertar(!alertar)
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error(err)
                 setMsgStrong("Hubo un error al querer descargar el Extracto")
                 setMsgGralAlert("")
                 setSuccessAlert(false)
@@ -65,9 +64,10 @@ const FilaProducto = ({
             })
     }
     const EliminarExtracto = (e, fecha) => {
+        console.log(`fecha`, fecha)
         e.preventDefault()
         const datos = {
-            fecha: formatDate(new Date(fecha), "yyyy-mm-dd")
+            fecha: fecha
         }
         swal({
             title: "Eliminar Extracto!",
@@ -139,14 +139,14 @@ const FilaProducto = ({
                     <DropdownMenu className="dropdown-menu-arrow" right>
                         <DropdownItem
                             href="#pablo"
-                            onClick={e => DescargarExtr(e, formatDate(new Date(item.fecha1), "yyyy-mm-dd"))}
+                            onClick={e => DescargarExtr(e, moment(new Date(item.fecha1), "YYYY-MM-DD").format("YYYY-MM-DD"))}
                         >
                             <i className="fas fa-download"></i>
-                            Descargar
+                            Descargar PDF
                         </DropdownItem>
                         <DropdownItem
                             href="#pablo"
-                            onClick={e => EliminarExtracto(e, item.fecha1)}
+                            onClick={e => EliminarExtracto(e, moment(new Date(item.fecha1), "YYYY-MM-DD").format("YYYY-MM-DD"))}
                         >
                             <i className="fas fa-trash"></i>
                             Eliminar Extracto
@@ -154,7 +154,7 @@ const FilaProducto = ({
                     </DropdownMenu>
                 </UncontrolledDropdown>
             </td>
-        </tr>
+        </tr >
     )
 }
 

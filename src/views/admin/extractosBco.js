@@ -27,7 +27,6 @@ import ExcelPNG from 'assets/img/brand/excel.png'
 import Paginacion from '../../components/subComponents/Paginacion/Paginacion'
 import FileSaver from 'file-saver';
 import { UseSecureRoutes } from '../../Hooks/UseSecureRoutes'
-import { headerAtorizarion } from '../../api/headerToken'
 
 const titulos = ["Fecha", "Saldo Inicial", "Mov. del Día", "Saldo Final", ""]
 const baseStyle = {
@@ -170,10 +169,10 @@ const ProductsItems = () => {
         const formData = new FormData();
 
         formData.append(fileName, archivo);
-        await fetch(UrlNodeServer.ProcesarExtracto, {
-            method: 'PUT',
+        await fetch(UrlNodeServer.procesarExrtactos, {
+            method: 'POST',
             body: formData,
-            headerAtorizarion
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
         })
             .then(response => response.json())
             .then(() => {
@@ -185,6 +184,7 @@ const ProductsItems = () => {
                 setMsgGralAlert("Ya puede descargar el extracto débidamente formateado.")
                 setSuccessAlert(true)
                 setAlertar(!alertar)
+                ListarExtractos()
             })
             .catch(() => {
                 setMsgStrong("Hubo un error al querer procesar el Extracto")
@@ -201,7 +201,10 @@ const ProductsItems = () => {
             query = `?desde=${desde}&hasta=${hasta}`
         }
         setEsperar2(true)
-        await axios.get(UrlNodeServer.extractoslist + pagina + query, headerAtorizarion)
+        await axios.get(UrlNodeServer.extractoslist + pagina + query, {
+            headers:
+                { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
+        })
             .then(res => {
                 setEsperar2(false)
                 const data = res.data.body

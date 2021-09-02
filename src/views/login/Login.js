@@ -70,7 +70,6 @@ const Login = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle }
       .then(res => {
         setloading(false)
         const provisory = parseInt(res.data.body.provisory)
-        console.log(`provisory`, provisory)
         const userData = res.data.body.userData
         localStorage.setItem("Nombre", userData.name)
         localStorage.setItem("Apellido", "")

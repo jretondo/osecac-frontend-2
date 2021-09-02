@@ -19,7 +19,6 @@ import { Link, Redirect } from "react-router-dom";
 import UrlNodeServer from '../../api/NodeServer'
 import { seguridadClave } from 'Function/SecurityPass'
 import { UseSecureRoutes } from '../../Hooks/UseSecureRoutes'
-import { headerAtorizarion } from '../../api/headerToken'
 
 const NvaPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle }) => {
   const [pass1, setPass1] = useState("")
@@ -69,7 +68,9 @@ const NvaPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle
         const datos = {
           password: pass1
         }
-        await axios.put(UrlNodeServer.aplyNewPass, datos, headerAtorizarion)
+        await axios.put(UrlNodeServer.aplyNewPass, datos, {
+          headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
+        })
           .then(() => {
             setColorAlert("success")
             setMsgAlertStrong("Contraseña cambiada con éxito!")
