@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
-import FilaExtractos from '../../../../components/subComponents/Listados/SubComponentes/FilaExtractos'
-import ListadoTable from '../../../../components/subComponents/Listados/ListadoTable'
-import UrlNodeServer from '../../../../api/NodeServer'
+import FilaMov from '../../../../../../components/subComponents/Listados/SubComponentes/FilaMov'
+import ListadoTable from '../../../../../../components/subComponents/Listados/ListadoTable'
+import UrlNodeServer from '../../../../../../api/NodeServer'
 import {
     Spinner
 } from "reactstrap"
@@ -10,10 +10,10 @@ import {
 const titulos = ["Fecha", "Saldo Inicial", "Mov. del Día", "Saldo Final", ""]
 
 const ListaExtractos = ({
-    desde,
-    hasta,
+    fecha,
+    filtroStr,
+    filtroBool,
     pagina,
-    filtro,
     setActividadStr,
     nvaActCall,
     setNvaActCall,
@@ -37,12 +37,12 @@ const ListaExtractos = ({
     }, [])
 
     useEffect(() => {
-        if (filtro) {
+        if (filtroBool) {
             listar()
             setPagina(1)
         }
         // eslint-disable-next-line
-    }, [filtro])
+    }, [filtroBool])
 
     useEffect(() => {
         listar()
@@ -57,11 +57,13 @@ const ListaExtractos = ({
 
     const listar = async () => {
         let query = ""
-        if (filtro) {
-            query = `?desde=${desde}&hasta=${hasta}`
+        if (filtroBool) {
+            query = `?fecha=${fecha}&filtro=${filtroStr}`
+        } else {
+            query = `?fecha=${fecha}`
         }
         setLoading(true)
-        await axios.get(UrlNodeServer.extractoslist + pagina + query, {
+        await axios.get(UrlNodeServer.listaMov + pagina + query, {
             headers:
                 { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
         })
@@ -80,7 +82,7 @@ const ListaExtractos = ({
                                 primero = false
                             }
                             return (
-                                <FilaExtractos
+                                <FilaMov
                                     id={key}
                                     key={key}
                                     item={item}
@@ -106,7 +108,7 @@ const ListaExtractos = ({
                     setListado(
                         <tr style={{ textAlign: "center", width: "100%" }}>
                             <td>
-                                No hay extractos cargados
+                                No hay movimientos cargados
                             </td>
                         </tr>
                     )
@@ -117,7 +119,7 @@ const ListaExtractos = ({
                 setListado(
                     <tr style={{ textAlign: "center", width: "100%" }}>
                         <td>
-                            No hay extractos cargados
+                            No hay movimientos cargados
                         </td>
                     </tr>
                 )

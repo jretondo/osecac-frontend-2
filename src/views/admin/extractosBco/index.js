@@ -17,8 +17,7 @@ import UrlNodeServer from '../../../api/NodeServer'
 import AlertaForm from '../../../components/subComponents/alerts/Alerta1'
 import Paginacion from '../../../components/subComponents/Paginacion/Paginacion'
 import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
-import ListaExtractosComp from './components/listaExtractos'
-import FiltroComp from './components/filtro'
+import ListaExtractos from './components/ListaExtractos'
 import ExcelProcessComp from './components/excelProcess'
 
 const ProductsItems = () => {
@@ -34,6 +33,9 @@ const ProductsItems = () => {
     const [pages, setPages] = useState([])
     const [call2, setCall2] = useState(false)
     const [filtro, setFiltro] = useState(false)
+
+    const [detBool, setDetBool] = useState(false)
+    const [idDet, setIdDet] = useState("")
 
     const [nvaActCall, setNvaActCall] = useState(false)
     const [actividadStr, setActividadStr] = useState("")
@@ -102,40 +104,36 @@ const ProductsItems = () => {
                         <Row>
                             <Col>
                                 <Card className="shadow">
-                                    <CardHeader className="border-0">
-                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Extractos Banco de Córdoba</h2>
-                                        <FiltroComp
-                                            desde={desde}
-                                            hasta={hasta}
-                                            setDesde={setDesde}
-                                            setHasta={setHasta}
-                                            setFiltro={setFiltro}
-                                            setMsgStrong={setMsgStrong}
-                                            setMsgGralAlert={setMsgGralAlert}
-                                            setSuccessAlert={setSuccessAlert}
-                                            setAlertar={setAlertar}
-                                            alertar={alertar}
-                                        />
-                                    </CardHeader>
-                                    <ListaExtractosComp
-                                        desde={desde}
-                                        hasta={hasta}
-                                        pagina={pagina}
-                                        filtro={filtro}
-                                        setActividadStr={setActividadStr}
-                                        nvaActCall={nvaActCall}
-                                        setNvaActCall={setNvaActCall}
-                                        alertar={alertar}
-                                        setAlertar={setAlertar}
-                                        setMsgStrong={setMsgStrong}
-                                        setMsgGralAlert={setMsgGralAlert}
-                                        setSuccessAlert={setSuccessAlert}
-                                        setCall2={setCall2}
-                                        call2={call2}
-                                        setPagina={setPages}
-                                        setUltimaPag={setUltimaPag}
-                                        setPages={setPages}
-                                    />
+                                    {
+                                        !detBool ?
+                                            <>
+                                                <ListaExtractos
+                                                    desde={desde}
+                                                    hasta={hasta}
+                                                    pagina={pagina}
+                                                    filtro={filtro}
+                                                    setActividadStr={setActividadStr}
+                                                    nvaActCall={nvaActCall}
+                                                    setNvaActCall={setNvaActCall}
+                                                    alertar={alertar}
+                                                    setAlertar={setAlertar}
+                                                    setMsgStrong={setMsgStrong}
+                                                    setMsgGralAlert={setMsgGralAlert}
+                                                    setSuccessAlert={setSuccessAlert}
+                                                    setCall2={setCall2}
+                                                    call2={call2}
+                                                    setPagina={setPages}
+                                                    setUltimaPag={setUltimaPag}
+                                                    setPages={setPages}
+                                                    setDesde={setDesde}
+                                                    setHasta={setHasta}
+                                                    setFiltro={setFiltro}
+                                                    setDetBool={setDetBool}
+                                                    setIdDet={setIdDet}
+                                                />
+                                            </> :
+                                            null
+                                    }
                                     <CardFooter className="py-4">
                                         <nav aria-label="..." style={{ marginBottom: "20px" }}>
                                             <Paginacion
@@ -164,6 +162,8 @@ const ProductsItems = () => {
                                         setSuccessAlert={setSuccessAlert}
                                         setAlertar={setAlertar}
                                         alertar={alertar}
+                                        setCall2={setCall2}
+                                        call2={call2}
                                     />
                                 </Card>
                             </Col>

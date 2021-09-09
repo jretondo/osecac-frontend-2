@@ -30,6 +30,7 @@ const procesarExrtactos = extractos + "/process"
 const removeExtracto = extractos + "/remove/"
 const extractoslist = extractos + "/list/"
 const extractosDownload = extractos + "/download/"
+const listaMov = extractos + "/detalles/"
 
 const UrlNodeServer = {
     user,
@@ -51,7 +52,8 @@ const UrlNodeServer = {
     procesarExrtactos,
     removeExtracto,
     extractoslist,
-    extractosDownload
+    extractosDownload,
+    listaMov
 }
 
 export default UrlNodeServer

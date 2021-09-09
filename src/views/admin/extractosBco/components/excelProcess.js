@@ -42,7 +42,9 @@ const ExcelProcessForm = ({
     setMsgGralAlert,
     setSuccessAlert,
     setAlertar,
-    alertar
+    alertar,
+    setCall2,
+    call2
 }) => {
     const [loading, setLoading] = useState(false)
     const [excelSelect, setExcelSelect] = useState(false)
@@ -105,6 +107,7 @@ const ExcelProcessForm = ({
         })
             .then(response => response.json())
             .then(() => {
+                setCall2(!call2)
                 setLoading(false)
                 setExcelSelect(false)
                 setArchivo("")

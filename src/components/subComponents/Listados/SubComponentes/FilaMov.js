@@ -5,13 +5,9 @@ import {
     UncontrolledDropdown,
     DropdownToggle
 } from "reactstrap"
-import formatDate from '../../../../Function/FormatDate'
-import NumberFormat from '../../../../Function/NumberFormat'
 import swal from 'sweetalert'
 import axios from 'axios'
 import UrlNodeServer from '../../../../api/NodeServer'
-import FileSaver from 'file-saver'
-import moment from 'moment'
 const FilaProducto = ({
     id,
     item,
@@ -28,47 +24,14 @@ const FilaProducto = ({
     setEsperar,
     primero,
     pagina,
-    setPagina,
-    setIdDet,
-    setDetBool
+    setPagina
 }) => {
 
-    const DescargarExtr = async (e, fecha) => {
-        e.preventDefault()
-        const datos = `?desde=${fecha}&hasta=${fecha}`
-        setEsperar(true)
-        await axios.get(UrlNodeServer.extractosDownload + datos, {
-            responseType: 'arraybuffer',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
-                Accept: 'application/pdf',
-            }
-        })
-            .then(res => {
-                FileSaver.saveAs(
-                    new Blob([res.data], { type: 'application/pdf' })
-                );
-
-                setEsperar(false)
-                setMsgStrong("Extracto descargado con éxito! ")
-                setMsgGralAlert("")
-                setSuccessAlert(true)
-                setAlertar(!alertar)
-            })
-            .catch((err) => {
-                console.error(err)
-                setMsgStrong("Hubo un error al querer descargar el Extracto")
-                setMsgGralAlert("")
-                setSuccessAlert(false)
-                setAlertar(!alertar)
-                setEsperar(false)
-            })
-    }
-    const EliminarExtracto = (e, fecha) => {
+    const EliminarMov = (e, id, detalle) => {
         e.preventDefault()
         swal({
-            title: "Eliminar Extracto!",
-            text: "¿Está seguro de eliminar el extracto del " + formatDate(new Date(fecha), "dd/mm/yyyy") + "? Esta operación no se puede revertir.",
+            title: "Eliminar Movimiento!",
+            text: "¿Está seguro de eliminar el movimiento: " + detalle + " ? Esta operación no se puede revertir.",
             icon: "warning",
             buttons: {
                 cancel: "No",
@@ -79,7 +42,7 @@ const FilaProducto = ({
             .then(async (willDelete) => {
                 if (willDelete) {
                     setEsperar(true)
-                    await axios.delete(UrlNodeServer.removeExtracto + fecha, {
+                    await axios.delete(UrlNodeServer.removeExtracto + id, {
                         headers:
                             { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
                     })
@@ -89,7 +52,7 @@ const FilaProducto = ({
                                     setPagina(parseInt(pagina - 1))
                                 }
                             }
-                            setActividadStr("El usuario ha eliminado el extracto del día " + formatDate(new Date(fecha), "dd/mm/yyyy"))
+                            setActividadStr("El usuario ha eliminado el movimiento " + detalle)
                             setNvaActCall(!nvaActCall)
                             setMsgStrong("Extracto eliminado con éxito!")
                             setMsgGralAlert("")
@@ -109,24 +72,22 @@ const FilaProducto = ({
             });
     }
 
-    const ListarMov = async (fecha) => {
-        setIdDet(fecha)
-        setDetBool(true)
+    const DiferenciaMov = async (id) => {
     }
 
     return (
         <tr key={id}>
             <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                {formatDate(new Date(item.fecha1), "dd/mm/yyyy")}
+                {item.fecha}
             </td>
             <td style={{ textAlign: "center" }}>
-                ${" "}{NumberFormat(item.saldoIni)}
-            </td>
-            <td style={parseInt(item.movDia) > 0 ? { textAlign: "center", color: "green", fontWeight: "bold" } : { textAlign: "center", color: "red", fontWeight: "bold" }}>
-                ${" "}{NumberFormat(item.movDia)}
+                {item.comprobante}
             </td>
             <td style={{ textAlign: "center" }}>
-                ${" "}{NumberFormat(item.saldoFinal)}
+                {item.descripcion}
+            </td>
+            <td style={{ textAlign: "center" }}>
+                {item.monto}
             </td>
             <td className="text-right">
                 <UncontrolledDropdown>
@@ -143,27 +104,20 @@ const FilaProducto = ({
                     <DropdownMenu className="dropdown-menu-arrow" right>
                         <DropdownItem
                             href="#pablo"
-                            onClick={e => DescargarExtr(e, moment(new Date(item.fecha1), "YYYY-MM-DD").format("YYYY-MM-DD"))}
-                        >
-                            <i className="fas fa-download"></i>
-                            Descargar PDF
-                        </DropdownItem>
-                        <DropdownItem
-                            href="#pablo"
                             onClick={e => {
                                 e.preventDefault()
-                                ListarMov(item.fecha1)
+                                DiferenciaMov(item.id)
                             }}
                         >
                             <i className="fas fa-search"></i>
-                            Ver Movimientos
+                            Diferencia
                         </DropdownItem>
                         <DropdownItem
                             href="#pablo"
-                            onClick={e => EliminarExtracto(e, moment(new Date(item.fecha1), "YYYY-MM-DD").format("YYYY-MM-DD"))}
+                            onClick={e => EliminarMov(e, item.id, item.descripcion)}
                         >
                             <i className="fas fa-trash"></i>
-                            Eliminar Extracto
+                            Eliminar Movimiento
                         </DropdownItem>
                     </DropdownMenu>
                 </UncontrolledDropdown>

@@ -8,7 +8,7 @@ import {
     Label,
     Spinner
 } from "reactstrap"
-import { DescargarPDF } from '../functions'
+import { DescargarPDF } from '../../../functions'
 
 const Filtro = ({
     desde,
