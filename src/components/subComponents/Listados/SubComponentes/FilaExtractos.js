@@ -67,7 +67,7 @@ const FilaProducto = ({
         e.preventDefault()
         swal({
             title: "Eliminar Extracto!",
-            text: "¿Está seguro de eliminar el extracto del " + formatDate(new Date(fecha), "dd/mm/yyyy") + "? Esta operación no se puede revertir.",
+            text: "¿Está seguro de eliminar el extracto del " + moment(fecha, "YYYY-MM-DD").format("DD/MM/YYYY") + "? Esta operación no se puede revertir.",
             icon: "warning",
             buttons: {
                 cancel: "No",

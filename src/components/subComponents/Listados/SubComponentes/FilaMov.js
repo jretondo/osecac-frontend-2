@@ -137,6 +137,16 @@ const FilaProducto = ({
                 modal={modal}
                 setModal={setModal}
                 idMov={item.id}
+                alertar={alertar}
+                setAlertar={setAlertar}
+                setMsgStrong={setMsgStrong}
+                setMsgGralAlert={setMsgGralAlert}
+                setSuccessAlert={setSuccessAlert}
+                setActividadStr={setActividadStr}
+                nvaActCall={nvaActCall}
+                setNvaActCall={setNvaActCall}
+                setCall={setCall}
+                call={call}
             />
         </>
     )
