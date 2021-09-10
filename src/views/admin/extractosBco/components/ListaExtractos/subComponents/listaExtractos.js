@@ -26,13 +26,16 @@ const ListaExtractos = ({
     call2,
     setPagina,
     setUltimaPag,
-    setPages
+    setPages,
+    setFechaDet,
+    setDetBool
 }) => {
     const [listado, setListado] = useState(<></>)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         listar()
+        setPagina(1)
         // eslint-disable-next-line
     }, [])
 
@@ -61,7 +64,7 @@ const ListaExtractos = ({
             query = `?desde=${desde}&hasta=${hasta}`
         }
         setLoading(true)
-        await axios.get(UrlNodeServer.extractoslist + pagina + query, {
+        await axios.get(UrlNodeServer.extractosDir.sub.list + pagina + query, {
             headers:
                 { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
         })
@@ -98,6 +101,8 @@ const ListaExtractos = ({
                                     primero={primero}
                                     pagina={pagina}
                                     setPagina={setPagina}
+                                    setFechaDet={setFechaDet}
+                                    setDetBool={setDetBool}
                                 />
                             )
                         })

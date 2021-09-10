@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
-import FilaMov from '../../../../../../components/subComponents/Listados/SubComponentes/FilaMov'
+import FilaExtractos from '../../../../../../components/subComponents/Listados/SubComponentes/FilaMov'
 import ListadoTable from '../../../../../../components/subComponents/Listados/ListadoTable'
 import UrlNodeServer from '../../../../../../api/NodeServer'
 import {
     Spinner
 } from "reactstrap"
 
-const titulos = ["Fecha", "Saldo Inicial", "Mov. del Día", "Saldo Final", ""]
+const titulos = ["Nº Comprobante", "Descripción", "Monto", ""]
 
 const ListaExtractos = ({
-    fecha,
-    filtroStr,
-    filtroBool,
     pagina,
+    filtro,
     setActividadStr,
     nvaActCall,
     setNvaActCall,
@@ -26,23 +24,25 @@ const ListaExtractos = ({
     call2,
     setPagina,
     setUltimaPag,
-    setPages
+    setPages,
+    fechaDet,
+    filtroStr,
+    setDetBool
 }) => {
     const [listado, setListado] = useState(<></>)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         listar()
+        setPagina(1)
         // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
-        if (filtroBool) {
-            listar()
-            setPagina(1)
-        }
+        listar()
+        setPagina(1)
         // eslint-disable-next-line
-    }, [filtroBool])
+    }, [filtro])
 
     useEffect(() => {
         listar()
@@ -57,13 +57,13 @@ const ListaExtractos = ({
 
     const listar = async () => {
         let query = ""
-        if (filtroBool) {
-            query = `?fecha=${fecha}&filtro=${filtroStr}`
+        if (filtro) {
+            query = `?fecha=${fechaDet}&filtro=${filtroStr}`
         } else {
-            query = `?fecha=${fecha}`
+            query = `?fecha=${fechaDet}`
         }
         setLoading(true)
-        await axios.get(UrlNodeServer.listaMov + pagina + query, {
+        await axios.get(`${UrlNodeServer.extractosDir.extractos}/${pagina}${query}`, {
             headers:
                 { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
         })
@@ -82,7 +82,7 @@ const ListaExtractos = ({
                                 primero = false
                             }
                             return (
-                                <FilaMov
+                                <FilaExtractos
                                     id={key}
                                     key={key}
                                     item={item}
@@ -100,6 +100,7 @@ const ListaExtractos = ({
                                     primero={primero}
                                     pagina={pagina}
                                     setPagina={setPagina}
+                                    setDetBool={setDetBool}
                                 />
                             )
                         })
@@ -108,7 +109,7 @@ const ListaExtractos = ({
                     setListado(
                         <tr style={{ textAlign: "center", width: "100%" }}>
                             <td>
-                                No hay movimientos cargados
+                                No hay extractos cargados
                             </td>
                         </tr>
                     )
@@ -119,7 +120,7 @@ const ListaExtractos = ({
                 setListado(
                     <tr style={{ textAlign: "center", width: "100%" }}>
                         <td>
-                            No hay movimientos cargados
+                            No hay extractos cargados
                         </td>
                     </tr>
                 )

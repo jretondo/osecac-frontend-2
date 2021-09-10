@@ -29,7 +29,7 @@ const FilaProducto = ({
     primero,
     pagina,
     setPagina,
-    setIdDet,
+    setFechaDet,
     setDetBool
 }) => {
 
@@ -37,7 +37,7 @@ const FilaProducto = ({
         e.preventDefault()
         const datos = `?desde=${fecha}&hasta=${fecha}`
         setEsperar(true)
-        await axios.get(UrlNodeServer.extractosDownload + datos, {
+        await axios.get(UrlNodeServer.extractosDir.sub.download + datos, {
             responseType: 'arraybuffer',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
@@ -48,7 +48,6 @@ const FilaProducto = ({
                 FileSaver.saveAs(
                     new Blob([res.data], { type: 'application/pdf' })
                 );
-
                 setEsperar(false)
                 setMsgStrong("Extracto descargado con éxito! ")
                 setMsgGralAlert("")
@@ -79,7 +78,7 @@ const FilaProducto = ({
             .then(async (willDelete) => {
                 if (willDelete) {
                     setEsperar(true)
-                    await axios.delete(UrlNodeServer.removeExtracto + fecha, {
+                    await axios.delete(`${UrlNodeServer.extractosDir.extractos}/${fecha}`, {
                         headers:
                             { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
                     })
@@ -110,7 +109,7 @@ const FilaProducto = ({
     }
 
     const ListarMov = async (fecha) => {
-        setIdDet(fecha)
+        setFechaDet(moment(fecha, "YYYY-MM-DD").format("YYYY-MM-DD"))
         setDetBool(true)
     }
 

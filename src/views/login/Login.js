@@ -66,7 +66,7 @@ const Login = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle }
       "password": pass
     }
     setloading(true)
-    await axios.post(UrlNodeServer.login, data)
+    await axios.post(UrlNodeServer.authDir.sub.login, data)
       .then(res => {
         setloading(false)
         const provisory = parseInt(res.data.body.provisory)

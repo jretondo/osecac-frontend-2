@@ -5,7 +5,7 @@ import {
     Col
 } from "reactstrap"
 import { useDropzone } from 'react-dropzone'
-import UrlNodeServer from '../../../../api/NodeServer'
+import UrlNodeServer from '../../../../../api/NodeServer'
 import ExcelPNG from 'assets/img/brand/excel.png'
 
 const baseStyle = {
@@ -100,7 +100,7 @@ const ExcelProcessForm = ({
         const formData = new FormData();
         setLoading(true)
         formData.append(fileName, archivo);
-        await fetch(UrlNodeServer.procesarExrtactos, {
+        await fetch(UrlNodeServer.extractosDir.sub.process, {
             method: 'POST',
             body: formData,
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }

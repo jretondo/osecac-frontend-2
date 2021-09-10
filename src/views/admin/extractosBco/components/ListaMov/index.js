@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import {
     CardHeader,
 } from "reactstrap"
-import ListaExtractosComp from './subComponents/listaExtractos'
+import ListaExtractosComp from './subComponents/listaMovimientos'
 import FiltroComp from './subComponents/filtro'
+import moment from 'moment'
+import Row from 'reactstrap/lib/Row'
+import Col from 'reactstrap/lib/Col'
 
 const ListaExtractos = ({
     pagina,
@@ -20,12 +23,12 @@ const ListaExtractos = ({
     setUltimaPag,
     setPages,
     setPagina,
-    setFechaDet,
+    fechaDet,
     setDetBool
 }) => {
-    const [desde, setDesde] = useState("")
-    const [hasta, setHasta] = useState("")
+
     const [filtro, setFiltro] = useState(false)
+    const [filtroStr, setFiltroStr] = useState("")
 
     useEffect(() => {
         setFiltro(false)
@@ -40,29 +43,39 @@ const ListaExtractos = ({
     }, [filtro])
 
     useEffect(() => {
-        setFiltro(false)
-    }, [desde, hasta])
+        if (filtro) {
+            setFiltro(false)
+        }
+        // eslint-disable-next-line 
+    }, [filtroStr])
 
     return (
         <>
             <CardHeader className="border-0">
-                <h2 className="mb-0" style={{ textAlign: "center" }}>Extractos Banco de Córdoba</h2>
+                <Row>
+                    <Col md="10" style={{ textAlign: "right" }}>
+                        <h1 className="mb-0" style={{ textAlign: "center", color: "gray", fontWeight: "bold", paddingLeft: "20%" }}>Movimientos del {moment(fechaDet, "YYYY-MM-DD").format("DD/MM/YYYY")}</h1>
+                    </Col>
+                    <Col md="2" style={{ textAlign: "right" }}>
+                        <button
+                            className="btn btn-danger"
+                            onClick={e => {
+                                e.preventDefault()
+                                setDetBool(false)
+                            }}
+                        >
+                            X
+                        </button>
+                    </Col>
+                </Row>
+
                 <FiltroComp
-                    desde={desde}
-                    hasta={hasta}
-                    setDesde={setDesde}
-                    setHasta={setHasta}
+                    detalleStr={filtroStr}
+                    setDetalleStr={setFiltroStr}
                     setFiltro={setFiltro}
-                    setMsgStrong={setMsgStrong}
-                    setMsgGralAlert={setMsgGralAlert}
-                    setSuccessAlert={setSuccessAlert}
-                    setAlertar={setAlertar}
-                    alertar={alertar}
                 />
             </CardHeader>
             <ListaExtractosComp
-                desde={desde}
-                hasta={hasta}
                 pagina={pagina}
                 filtro={filtro}
                 setActividadStr={setActividadStr}
@@ -78,7 +91,8 @@ const ListaExtractos = ({
                 setPagina={setPages}
                 setUltimaPag={setUltimaPag}
                 setPages={setPages}
-                setFechaDet={setFechaDet}
+                fechaDet={fechaDet}
+                filtroStr={filtroStr}
                 setDetBool={setDetBool}
             />
         </>

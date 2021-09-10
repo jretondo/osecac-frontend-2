@@ -16,7 +16,7 @@ import { UseSecureRoutes } from '../../Hooks/UseSecureRoutes'
 const Index = () => {
     const [call, setCall] = useState(false)
     const { loading, error } = UseSecureRoutes(
-        UrlNodeServer.dashboard,
+        UrlNodeServer.routesDir.sub.pagoPrestadores,
         call
     )
 

@@ -68,7 +68,7 @@ const NvaPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle
         const datos = {
           password: pass1
         }
-        await axios.put(UrlNodeServer.aplyNewPass, datos, {
+        await axios.put(UrlNodeServer.authDir.sub.changePass, datos, {
           headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
         })
           .then(() => {

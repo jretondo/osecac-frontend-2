@@ -20,7 +20,7 @@ export const DescargarPDF = async (desde, hasta) => {
         }
     } else {
         return new Promise((resolve, reject) => {
-            axios.get(UrlNodeServer.extractosDownload + `?desde=${desde}&hasta=${hasta}`, {
+            axios.get(UrlNodeServer.extractosDir.sub.download + `?desde=${desde}&hasta=${hasta}`, {
                 responseType: 'arraybuffer',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
@@ -37,7 +37,7 @@ export const DescargarPDF = async (desde, hasta) => {
                     })
                 })
                 .catch(() => {
-                    resolve({
+                    reject({
                         status: 500,
                         result: ""
                     })
