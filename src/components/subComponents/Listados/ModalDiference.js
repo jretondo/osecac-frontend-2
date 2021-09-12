@@ -87,9 +87,7 @@ const ModalDiference = ({
         } else {
             let diferencia = dif
             if (impOriginal < 0) {
-                if (credDeb) {
-                    diferencia = (- dif)
-                }
+                diferencia = (- dif)
             }
 
             let nvoImporte = impNvo

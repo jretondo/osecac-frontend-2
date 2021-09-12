@@ -1,6 +1,6 @@
 import index from "views/admin/dashboard"
 import extractosBco from 'views/admin/extractosBco'
-import conciliacionBco from 'views/admin/extractosBco'
+import conciliacionBco from 'views/admin/conciliacionBco'
 import adminUsu from 'views/admin/adminUsu'
 import libroBco from 'views/admin/libroBco'
 import pagoAgencias from 'views/admin/pagoAgencias'

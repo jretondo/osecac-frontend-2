@@ -1,6 +1,6 @@
 let host = ""
 if (process.env.NODE_ENV === "development") {
-    host = "http://172.21.10.60:3001/api"
+    host = "http://192.168.0.11:3001/api"
 } else {
     host = "http://172.21.10.25:3000/api"
 }
