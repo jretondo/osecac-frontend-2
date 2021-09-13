@@ -22,10 +22,12 @@ import {
 } from "reactstrap";
 import Img1 from 'assets/img/theme/default-avatar.png';
 import Brand2 from 'assets/img/brand/osecac.png';
-
+import axios from "axios";
+import UrlNodeServer from "../../api/NodeServer";
 class Sidebar extends React.Component {
   state = {
-    collapseOpen: false
+    collapseOpen: false,
+    data: <></>
   };
   constructor(props) {
     super(props);
@@ -47,27 +49,72 @@ class Sidebar extends React.Component {
       collapseOpen: false
     });
   };
+
+  createLinks = async (routes) => {
+    await axios.get(UrlNodeServer.permissionsDir.permissions, {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
+    })
+      .then(res => {
+        this.setState({
+          data: (
+            routes.map((prop, key) => {
+              const id = prop.id
+
+              function check(item) {
+                return item.id_permission === id;
+              }
+              const esta = res.data.body.find(check)
+
+              if (prop.id === 10) {
+                return (
+                  <NavItem key={key}>
+                    <NavLink
+                      to={prop.layout + prop.path}
+                      tag={NavLinkRRD}
+                      onClick={this.closeCollapse}
+                      activeClassName="active"
+                    >
+                      <i className={prop.icon} />
+                      {prop.name}
+                    </NavLink>
+                  </NavItem>
+                );
+              } else {
+                if (esta) {
+                  return (
+                    <NavItem key={key}>
+                      <NavLink
+                        to={prop.layout + prop.path}
+                        tag={NavLinkRRD}
+                        onClick={this.closeCollapse}
+                        activeClassName="active"
+                      >
+                        <i className={prop.icon} />
+                        {prop.name}
+                      </NavLink>
+                    </NavItem>
+                  );
+                } else {
+                  return null
+                }
+              }
+            }))
+        })
+      })
+  }
+
   // creates the links that appear in the left menu / Sidebar
-  createLinks = routes => {
-    return routes.map((prop, key) => {
-      return (
-        <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={this.closeCollapse}
-            activeClassName="active"
-          >
-            <i className={prop.icon} />
-            {prop.name}
-          </NavLink>
-        </NavItem>
-      );
-    });
-  };
+  componentDidMount() {
+    this.createLinks(this.props.routes)
+  }
+
+  componentWillUnmount() {
+    this.createLinks(this.props.routes)
+  }
   render() {
-    const { routes, logo } = this.props;
+    const { logo } = this.props;
     let navbarBrandProps;
+
     if (logo && logo.innerLink) {
       navbarBrandProps = {
         to: logo.innerLink,
@@ -85,6 +132,7 @@ class Sidebar extends React.Component {
         expand="md"
         id="sidenav-main"
       >
+
         <Container fluid>
           {/* Toggler */}
           <button
@@ -172,7 +220,7 @@ class Sidebar extends React.Component {
             {/* Form */}
 
             {/* Navigation */}
-            <Nav navbar>{this.createLinks(routes)}</Nav>
+            <Nav navbar>{this.state.data}</Nav>
             {/* Divider */}
             <hr className="my-3" />
           </Collapse>
