@@ -19,43 +19,30 @@ import UrlNodeServer from '../../api/NodeServer'
 import axios from 'axios'
 
 const ForgPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle }) => {
-  const [email, setEmail] = useState("")
+  const [user, setUser] = useState("")
   const [esperar, setEsperar] = useState(false)
   const [done, setDone] = useState(false)
 
   const recuperarPass = async (e) => {
     e.preventDefault()
     const datos = {
-      email: email
+      user: user
     }
     setEsperar(true)
-    await axios.post(UrlNodeServer.RecPass, datos)
+    await axios.put(UrlNodeServer.userDir.sub.recPass, datos)
       .then(res => {
         setEsperar(false)
         const respuesta = res.data
         const estatus = parseInt(respuesta.status)
         if (estatus === 200) {
-
-          const affectedRows = parseInt(respuesta.result.affectedRows)
-
-          if (affectedRows > 0) {
-            setColorAlert("success")
-            setMsgAlertStrong("Contraseña cambiada!")
-            setMsgAlert("Revise su correo que le tiene que haber llegado un correo con la nueva contraseña")
-            setAlertToggle("")
-            setDone(true)
-            setTimeout(() => {
-              setAlertToggle("none")
-            }, 5000);
-          } else {
-            setColorAlert("danger")
-            setMsgAlertStrong("Casilla no encontrada!")
-            setMsgAlert("Revise la casilla que ha colocado, ya que no coincide con ninguna en nuestras bases de datos.")
-            setAlertToggle("")
-            setTimeout(() => {
-              setAlertToggle("none")
-            }, 5000);
-          }
+          setColorAlert("success")
+          setMsgAlertStrong("Contraseña cambiada!")
+          setMsgAlert("Revise su correo que le tiene que haber llegado un correo con la nueva contraseña")
+          setAlertToggle("")
+          setDone(true)
+          setTimeout(() => {
+            setAlertToggle("none")
+          }, 5000);
         } else {
           setColorAlert("danger")
           setMsgAlertStrong("Error inesperado!")
@@ -65,6 +52,16 @@ const ForgPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggl
             setAlertToggle("none")
           }, 5000);
         }
+      })
+      .catch(() => {
+        setEsperar(false)
+        setColorAlert("danger")
+        setMsgAlertStrong("Error inesperado!")
+        setMsgAlert("Hubo un error al querer recuperar su contraseña. intente nuevamente más tarde.")
+        setAlertToggle("")
+        setTimeout(() => {
+          setAlertToggle("none")
+        }, 5000);
       })
   }
 
@@ -82,7 +79,7 @@ const ForgPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggl
           <Card className="bg-secondary shadow border-0">
             <CardBody className="px-lg-5">
               <div className="text-center text-muted mb-4">
-                <span style={{ fontWeight: "bold" }}>Ingrese su casilla de correo:</span>
+                <span style={{ fontWeight: "bold" }}>Ingrese su casilla de correo o usuario:</span>
               </div>
               {
                 esperar ?
@@ -97,7 +94,7 @@ const ForgPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggl
                             <i className="ni ni-email-83" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="new-email" id="emailInp" required />
+                        <Input placeholder="Coloque su email o usuario..." type="text" value={user} onChange={e => setUser(e.target.value)} autoComplete="new-email" id="emailInp" required />
                       </InputGroup>
                     </FormGroup>
 

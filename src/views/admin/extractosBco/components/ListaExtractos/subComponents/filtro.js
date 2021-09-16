@@ -1,3 +1,5 @@
+import UrlNodeServer from '../../../../../../api/NodeServer'
+import axios from 'axios'
 import React, { useState } from 'react'
 import {
     Row,
@@ -9,6 +11,7 @@ import {
     Spinner
 } from "reactstrap"
 import { DescargarPDF } from '../../../functions'
+import ModalGastos from './modalGstos'
 
 const Filtro = ({
     desde,
@@ -23,6 +26,8 @@ const Filtro = ({
     alertar
 }) => {
     const [loading, setLoading] = useState(false)
+    const [modalToggle, setmodalToggle] = useState(false)
+    const [gastos, setGastos] = useState([])
 
     const ConsultaFechas = (e) => {
         e.preventDefault()
@@ -50,6 +55,28 @@ const Filtro = ({
             })
             .catch(() => {
                 setMsgStrong("Hubo un error al querer descargar el Extracto")
+                setMsgGralAlert("")
+                setSuccessAlert(false)
+                setAlertar(!alertar)
+                setLoading(false)
+            })
+    }
+
+    const calcGstos = async () => {
+        const query = `?desde=${desde}&hasta=${hasta}`
+        setLoading(true)
+        await axios.get(`${UrlNodeServer.extractosDir.sub.calcGstos}${query}`, {
+            headers:
+                { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
+        })
+            .then((res) => {
+                setLoading(false)
+                console.log(`res.data`, res.data)
+                setGastos(res.data.body)
+                setmodalToggle(true)
+            })
+            .catch(() => {
+                setMsgStrong("Hubo un error al querer mostrar los Gastos e impuestos")
                 setMsgGralAlert("")
                 setSuccessAlert(false)
                 setAlertar(!alertar)
@@ -87,6 +114,23 @@ const Filtro = ({
                                 <button className="btn btn-warning" style={{ marginTop: "33px" }} onClick={e => getPDF(e)}>
                                     Descargar PDF
                                 </button>
+                                <button
+                                    className="btn btn-default"
+                                    style={{ marginTop: "33px" }}
+                                    onClick={e => {
+                                        e.preventDefault()
+                                        calcGstos()
+                                    }}
+                                >
+                                    Gastos e Imp.
+                                </button>
+                                <ModalGastos
+                                    toggle={modalToggle}
+                                    setToggle={setmodalToggle}
+                                    data={gastos}
+                                    desde={desde}
+                                    hasta={hasta}
+                                />
                             </Col>
                         </Row>
                     </Col>

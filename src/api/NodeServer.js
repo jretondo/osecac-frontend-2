@@ -12,7 +12,11 @@ const routes = host + "/routes"
 const extractos = host + "/extractos"
 
 const userDir = {
-    user
+    user,
+    sub: {
+        getUser: user + "/get",
+        recPass: user + "/recPass"
+    }
 }
 
 const permissionsDir = {
@@ -50,7 +54,8 @@ const extractosDir = {
         process: extractos + "/process",
         list: extractos + "/list/",
         download: extractos + "/download/",
-        removeId: extractos + "/removeId/"
+        removeId: extractos + "/removeId/",
+        calcGstos: extractos + "/calcGstos"
     }
 }
 
