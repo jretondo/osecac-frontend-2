@@ -7,6 +7,9 @@ import {
 import { useDropzone } from 'react-dropzone'
 import UrlNodeServer from '../../../../../api/NodeServer'
 import ExcelPNG from 'assets/img/brand/excel.png'
+import Card from "reactstrap/lib/Card"
+import CardHeader from "reactstrap/lib/CardHeader"
+import ButtonToggle1 from '../../../../../components/subComponents/buttonToggle/buttonToggle1'
 
 const baseStyle = {
     flex: 1,
@@ -50,6 +53,7 @@ const ExcelProcessForm = ({
     const [excelSelect, setExcelSelect] = useState(false)
     const [fileName, setFileNAme] = useState("")
     const [archivo, setArchivo] = useState("")
+    const [windowToggle, setWindowToggle] = useState(false)
 
     const {
         acceptedFiles,
@@ -125,62 +129,111 @@ const ExcelProcessForm = ({
                 setAlertar(!alertar)
             })
     }
-
-    if (excelSelect) {
+    if (!windowToggle) {
         return (
-            <>
-                <Row style={{ paddingTop: "20px", paddingBottom: "20px" }}>
-                    <Col md="12" style={{ textAlign: "center" }}>
-                        <button
-                            className="btn btn-danger"
-                            onClick={e => {
-                                setExcelSelect(false)
-                                setArchivo("")
-                                setFileNAme("")
-                            }}
-                            style={{ position: "relative", right: "-120px", top: "-40px" }}
-                        > X
-                        </button>
-                        <img src={ExcelPNG} style={{ width: "80px" }} alt="Excel" />
-                        <h3 style={{ color: "green" }}>{fileName}</h3>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md="12" style={{ textAlign: "center" }}>
-                        <button className="btn btn-warning" style={{ marginBottom: "30px" }} onClick={e => { ProcesarExtracto(e) }} >Procesar Archivo</button>
-                    </Col>
-                </Row>
-            </>
-        )
-    } else if (loading) {
-        return (
-            <>
-                <div style={{ textAlign: "center", marginTop: "100px" }}>
-                    <Spinner type="grow" color="primary" style={{ width: "100px", height: "100px" }} /> </div>
-            </>
+            <Card className="shadow">
+                <CardHeader className="border-0">
+                    <ButtonToggle1
+                        symbol={
+                            windowToggle ? "-" : "+"
+                        }
+                        textToDo={
+                            windowToggle ? "Minimizar" : "Maximizar"
+                        }
+                        toogle={windowToggle}
+                        setToggle={setWindowToggle}
+                    />
+                    <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                </CardHeader>
+            </Card>
         )
     } else {
-        return (
-            <>
-                <StyledDropzone />
-                <Row>
-                    <Col md="12" style={{ textAlign: "center", marginBottom: "30px" }}>
-                        <h3>O</h3>
-                        <button className="btn btn-primary" style={{ margin: 0 }} onClick={e => {
-                            e.preventDefault()
-                            document.getElementById("selectFile").click()
+        if (excelSelect) {
+            return (
+                <>
+                    <Card className="shadow">
+                        <CardHeader className="border-0">
+                            <ButtonToggle1
+                                symbol={
+                                    windowToggle ? "-" : "+"
+                                }
+                                textToDo={
+                                    windowToggle ? "Minimizar" : "Maximizar"
+                                }
+                                toogle={windowToggle}
+                                setToggle={setWindowToggle}
+                            />
+                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                        </CardHeader>
+                        <Row style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+                            <Col md="12" style={{ textAlign: "center" }}>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={e => {
+                                        setExcelSelect(false)
+                                        setArchivo("")
+                                        setFileNAme("")
+                                    }}
+                                    style={{ position: "relative", right: "-120px", top: "-40px" }}
+                                > X
+                                </button>
+                                <img src={ExcelPNG} style={{ width: "80px" }} alt="Excel" />
+                                <h3 style={{ color: "green" }}>{fileName}</h3>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md="12" style={{ textAlign: "center" }}>
+                                <button className="btn btn-warning" style={{ marginBottom: "30px" }} onClick={e => { ProcesarExtracto(e) }} >Procesar Archivo</button>
+                            </Col>
+                        </Row>
+                    </Card>
+                </>
+            )
+        } else if (loading) {
+            return (
+                <>
+                    <div style={{ textAlign: "center", marginTop: "100px" }}>
+                        <Spinner type="grow" color="primary" style={{ width: "100px", height: "100px" }} /> </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <Card className="shadow">
+                        <CardHeader className="border-0">
+                            <ButtonToggle1
+                                symbol={
+                                    windowToggle ? "-" : "+"
+                                }
+                                textToDo={
+                                    windowToggle ? "Minimizar" : "Maximizar"
+                                }
+                                toogle={windowToggle}
+                                setToggle={setWindowToggle}
+                            />
+                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                        </CardHeader>
+                        <StyledDropzone />
+                        <Row>
+                            <Col md="12" style={{ textAlign: "center", marginBottom: "30px" }}>
+                                <h3>O</h3>
+                                <button className="btn btn-primary" style={{ margin: 0 }} onClick={e => {
+                                    e.preventDefault()
+                                    document.getElementById("selectFile").click()
 
-                        }} >Elija un Archivo</button>
-                        <br />
-                        <input type="file" placeholder="Selecciones archivo" id="selectFile" style={{ visibility: "hidden" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onChange={e => {
-                            setArchivo(e.target.files[0])
-                            setFileNAme(e.target.files[0].name)
-                            setExcelSelect(true)
-                        }} />
-                    </Col>
-                </Row>
-            </>
-        )
+                                }} >Elija un Archivo</button>
+                                <br />
+                                <input type="file" placeholder="Selecciones archivo" id="selectFile" style={{ visibility: "hidden" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onChange={e => {
+                                    setArchivo(e.target.files[0])
+                                    setFileNAme(e.target.files[0].name)
+                                    setExcelSelect(true)
+                                }} />
+                            </Col>
+                        </Row>
+                    </Card>
+                </>
+            )
+        }
     }
 }
 

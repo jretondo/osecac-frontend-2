@@ -4,6 +4,7 @@ import {
 } from "reactstrap"
 import ListaExtractosComp from './subComponents/listaExtractos'
 import FiltroComp from './subComponents/filtro'
+import ButtonToggle1 from '../../../../../components/subComponents/buttonToggle/buttonToggle1'
 
 const ListaExtractos = ({
     pagina,
@@ -21,7 +22,9 @@ const ListaExtractos = ({
     setPages,
     setPagina,
     setFechaDet,
-    setDetBool
+    setDetBool,
+    windowToggle,
+    setWindowToggle
 }) => {
     const [desde, setDesde] = useState("")
     const [hasta, setHasta] = useState("")
@@ -46,6 +49,16 @@ const ListaExtractos = ({
     return (
         <>
             <CardHeader className="border-0">
+                <ButtonToggle1
+                    symbol={
+                        windowToggle ? "-" : "+"
+                    }
+                    textToDo={
+                        windowToggle ? "Minimizar" : "Maximizar"
+                    }
+                    toogle={windowToggle}
+                    setToggle={setWindowToggle}
+                />
                 <h2 className="mb-0" style={{ textAlign: "center" }}>Extractos Banco de Córdoba</h2>
                 <FiltroComp
                     desde={desde}
@@ -58,29 +71,34 @@ const ListaExtractos = ({
                     setSuccessAlert={setSuccessAlert}
                     setAlertar={setAlertar}
                     alertar={alertar}
+                    windowToggle={windowToggle}
                 />
             </CardHeader>
-            <ListaExtractosComp
-                desde={desde}
-                hasta={hasta}
-                pagina={pagina}
-                filtro={filtro}
-                setActividadStr={setActividadStr}
-                nvaActCall={nvaActCall}
-                setNvaActCall={setNvaActCall}
-                alertar={alertar}
-                setAlertar={setAlertar}
-                setMsgStrong={setMsgStrong}
-                setMsgGralAlert={setMsgGralAlert}
-                setSuccessAlert={setSuccessAlert}
-                setCall2={setCall2}
-                call2={call2}
-                setPagina={setPages}
-                setUltimaPag={setUltimaPag}
-                setPages={setPages}
-                setFechaDet={setFechaDet}
-                setDetBool={setDetBool}
-            />
+            {
+                windowToggle ?
+                    <ListaExtractosComp
+                        desde={desde}
+                        hasta={hasta}
+                        pagina={pagina}
+                        filtro={filtro}
+                        setActividadStr={setActividadStr}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                        setCall2={setCall2}
+                        call2={call2}
+                        setPagina={setPages}
+                        setUltimaPag={setUltimaPag}
+                        setPages={setPages}
+                        setFechaDet={setFechaDet}
+                        setDetBool={setDetBool}
+                    /> :
+                    <></>
+            }
         </>
     )
 }

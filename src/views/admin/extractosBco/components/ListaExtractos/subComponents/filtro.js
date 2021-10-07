@@ -23,7 +23,8 @@ const Filtro = ({
     setMsgGralAlert,
     setSuccessAlert,
     setAlertar,
-    alertar
+    alertar,
+    windowToggle
 }) => {
     const [loading, setLoading] = useState(false)
     const [modalToggle, setmodalToggle] = useState(false)
@@ -110,7 +111,10 @@ const Filtro = ({
                     <Col md="6">
                         <Row>
                             <Col >
-                                <button className="btn btn-primary" style={{ marginTop: "33px" }} type="submit">Filtrar</button>
+                                <button
+                                    className="btn btn-primary"
+                                    disabled={!windowToggle}
+                                    style={{ marginTop: "33px" }} type="submit">Filtrar</button>
                                 <button className="btn btn-warning" style={{ marginTop: "33px" }} onClick={e => getPDF(e)}>
                                     Descargar PDF
                                 </button>

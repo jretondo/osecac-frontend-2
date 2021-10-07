@@ -9,7 +9,8 @@ import {
     Container,
     Row,
     Spinner,
-    Col
+    Col,
+    Tooltip
 } from "reactstrap"
 // core components
 import Header from "components/Headers/Header.js";
@@ -20,6 +21,7 @@ import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
 import ListaExtractos from './components/ListaExtractos'
 import ListaMov from './components/ListaMov'
 import ExcelProcess from './components/excelProcess'
+import MovSinIdentificar from "./components/movSin";
 
 const ProductsItems = () => {
     const [alertar, setAlertar] = useState(false)
@@ -34,6 +36,7 @@ const ProductsItems = () => {
 
     const [detBool, setDetBool] = useState(false)
     const [fechaDet, setFechaDet] = useState("")
+    const [windowToggle, setWindowToggle] = useState(false)
 
     const [nvaActCall, setNvaActCall] = useState(false)
     const [actividadStr, setActividadStr] = useState("")
@@ -106,6 +109,8 @@ const ProductsItems = () => {
                                                     setDetBool={setDetBool}
                                                     setFechaDet={setFechaDet}
                                                     setPagina={setPagina}
+                                                    windowToggle={windowToggle}
+                                                    setWindowToggle={setWindowToggle}
                                                 />
                                             </> :
                                             <ListaMov
@@ -128,38 +133,42 @@ const ProductsItems = () => {
                                                 fechaDet={fechaDet}
                                             />
                                     }
-                                    <CardFooter className="py-4">
-                                        <nav aria-label="..." style={{ marginBottom: "20px" }}>
-                                            <Paginacion
-                                                setPagina={(pagina) => setPagina(pagina)}
-                                                pagina={pagina}
-                                                plantPaginas={plantPaginas}
-                                                ultimaPag={ultimaPag}
-                                                pages={pages}
-                                                setPlantPaginas={(plantPaginas) => setPlantPaginas(plantPaginas)}
-                                                setUltimaPag={(ultimaPag) => setUltimaPag(ultimaPag)}
-                                            />
-                                        </nav>
-                                    </CardFooter>
+                                    {
+                                        windowToggle ?
+                                            <CardFooter className="py-4">
+                                                <nav aria-label="..." style={{ marginBottom: "20px" }}>
+                                                    <Paginacion
+                                                        setPagina={(pagina) => setPagina(pagina)}
+                                                        pagina={pagina}
+                                                        plantPaginas={plantPaginas}
+                                                        ultimaPag={ultimaPag}
+                                                        pages={pages}
+                                                        setPlantPaginas={(plantPaginas) => setPlantPaginas(plantPaginas)}
+                                                        setUltimaPag={(ultimaPag) => setUltimaPag(ultimaPag)}
+                                                    />
+                                                </nav>
+                                            </CardFooter> :
+                                            <></>
+                                    }
                                 </Card>
                             </Col>
                         </Row>
                         <Row style={{ marginTop: "30px" }}>
                             <Col>
-                                <Card className="shadow">
-                                    <CardHeader className="border-0">
-                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
-                                    </CardHeader>
-                                    <ExcelProcess
-                                        setMsgStrong={setMsgStrong}
-                                        setMsgGralAlert={setMsgGralAlert}
-                                        setSuccessAlert={setSuccessAlert}
-                                        setAlertar={setAlertar}
-                                        alertar={alertar}
-                                        setCall2={setCall2}
-                                        call2={call2}
-                                    />
-                                </Card>
+                                <ExcelProcess
+                                    setMsgStrong={setMsgStrong}
+                                    setMsgGralAlert={setMsgGralAlert}
+                                    setSuccessAlert={setSuccessAlert}
+                                    setAlertar={setAlertar}
+                                    alertar={alertar}
+                                    setCall2={setCall2}
+                                    call2={call2}
+                                />
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: "30px" }}>
+                            <Col>
+                                <MovSinIdentificar />
                             </Col>
                         </Row>
                     </>
