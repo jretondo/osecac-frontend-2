@@ -55,7 +55,9 @@ const extractosDir = {
         list: extractos + "/list/",
         download: extractos + "/download/",
         removeId: extractos + "/removeId/",
-        calcGstos: extractos + "/calcGstos"
+        calcGstos: extractos + "/calcGstos",
+        sinAsignar: extractos + "/sin",
+        tiposmov: extractos + "/tiposMov"
     }
 }
 

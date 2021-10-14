@@ -4,13 +4,11 @@ import { Redirect } from "react-router-dom"
 // reactstrap components
 import {
     Card,
-    CardHeader,
     CardFooter,
     Container,
     Row,
     Spinner,
     Col,
-    Tooltip
 } from "reactstrap"
 // core components
 import Header from "components/Headers/Header.js";
@@ -168,7 +166,19 @@ const ProductsItems = () => {
                         </Row>
                         <Row style={{ marginTop: "30px" }}>
                             <Col>
-                                <MovSinIdentificar />
+                                <MovSinIdentificar
+                                    setActividadStr={setActividadStr}
+                                    nvaActCall={nvaActCall}
+                                    setNvaActCall={setNvaActCall}
+                                    setMsgStrong={setMsgStrong}
+                                    setMsgGralAlert={setMsgGralAlert}
+                                    setSuccessAlert={setSuccessAlert}
+                                    setAlertar={setAlertar}
+                                    alertar={alertar}
+                                    setCall={setCall}
+                                    call={call}
+                                    setDetBool={setDetBool}
+                                />
                             </Col>
                         </Row>
                     </>
