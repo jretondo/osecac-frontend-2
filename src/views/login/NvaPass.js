@@ -28,7 +28,7 @@ const NvaPass = ({ setColorAlert, setMsgAlert, setMsgAlertStrong, setAlertToggle
   const [passSecureColor, setPassSecureColor] = useState("danger")
   const [call, setCall] = useState(false)
   const { loading, error } = UseSecureRoutes(
-    UrlNodeServer.changePass,
+    UrlNodeServer.routesDir.sub.changePass,
     call
   )
 
