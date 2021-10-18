@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import UrlNodeServer from '../../api/NodeServer'
+import UrlNodeServer from '../../../api/NodeServer'
 import Header from "components/Headers/Header.js"
 import {
     Spinner,
@@ -11,7 +11,7 @@ import {
     CardHeader
 } from "reactstrap";
 import { Redirect } from "react-router-dom"
-import { UseSecureRoutes } from '../../Hooks/UseSecureRoutes'
+import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
 
 const Index = () => {
     const [call, setCall] = useState(false)

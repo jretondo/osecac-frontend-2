@@ -11,27 +11,30 @@ import {
     CardHeader
 } from "reactstrap";
 import { Redirect } from "react-router-dom"
-import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
-import TransfPend from './components/transfPend'
+import { UseSecureRoutes } from "Hooks/UseSecureRoutes";
+import ListaAgencias from './components/listAgencias'
 import { UseActivity } from "Hooks/UseActivity";
-import AlertaForm from '../../../components/subComponents/alerts/Alerta1'
 
 const Index = () => {
+    const [call, setCall] = useState(false)
     const [alertar, setAlertar] = useState(false)
     const [msgStrongAlert, setMsgStrong] = useState("")
     const [msgGralAlert, setMsgGralAlert] = useState("")
     const [successAlert, setSuccessAlert] = useState(false)
+    const [pagina, setPagina] = useState(1)
+    const [plantPaginas, setPlantPaginas] = useState([])
+    const [ultimaPag, setUltimaPag] = useState(0)
+    const [pages, setPages] = useState([])
+
     const [nvaActCall, setNvaActCall] = useState(false)
     const [actividadStr, setActividadStr] = useState("")
-
     UseActivity(
         nvaActCall,
         actividadStr
     )
 
-    const [call, setCall] = useState(false)
     const { loading, error } = UseSecureRoutes(
-        UrlNodeServer.routesDir.sub.conciliacionBancaria,
+        UrlNodeServer.routesDir.sub.pagoAgencias,
         call
     )
 
@@ -58,14 +61,9 @@ const Index = () => {
         return (
             <>
                 <Header />
-                <AlertaForm
-                    success={successAlert}
-                    msgStrong={msgStrongAlert}
-                    msgGral={msgGralAlert}
-                    alertar={alertar}
-                />
                 <Container className="mt--7" fluid>
-                    <TransfPend
+                    <ListaAgencias
+                        pagina={pagina}
                         setActividadStr={setActividadStr}
                         nvaActCall={nvaActCall}
                         setNvaActCall={setNvaActCall}
@@ -74,8 +72,11 @@ const Index = () => {
                         setMsgStrong={setMsgStrong}
                         setMsgGralAlert={setMsgGralAlert}
                         setSuccessAlert={setSuccessAlert}
-                        call={call}
                         setCall={setCall}
+                        call={call}
+                        setUltimaPag={setUltimaPag}
+                        setPages={setPages}
+                        setPagina={setPagina}
                     />
                 </Container>
             </>

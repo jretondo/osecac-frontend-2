@@ -32,6 +32,7 @@ const ModalTypeList = ({
 
     useEffect(() => {
         ListaTiposMov()
+        // eslint-disable-next-line
     }, [])
 
     const ListaTiposMov = async () => {

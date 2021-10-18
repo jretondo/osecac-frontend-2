@@ -10,6 +10,8 @@ const permissions = host + "/permissions"
 const auth = host + "/auth"
 const routes = host + "/routes"
 const extractos = host + "/extractos"
+const conciliacion = host + "/conciliacion"
+const proveedores = host + "/proveedores"
 
 const userDir = {
     user,
@@ -31,6 +33,13 @@ const authDir = {
     }
 }
 
+const proveedoresDir = {
+    proveedores,
+    sub: {
+        getOne: proveedores + "/get"
+    }
+}
+
 const routesDir = {
     routes,
     sub: {
@@ -45,6 +54,14 @@ const routesDir = {
         fiscalizacion: routes + "/fiscalizacion",
         dashboard: routes + "/dashboard",
         changePass: routes + "/changePass"
+    }
+}
+
+const conciliacionDir = {
+    conciliacion,
+    sub: {
+        transferencias: conciliacion + "/transf",
+        download: extractos + "/download/"
     }
 }
 
@@ -66,7 +83,9 @@ const UrlNodeServer = {
     permissionsDir,
     authDir,
     routesDir,
-    extractosDir
+    extractosDir,
+    conciliacionDir,
+    proveedoresDir
 }
 
 export default UrlNodeServer
