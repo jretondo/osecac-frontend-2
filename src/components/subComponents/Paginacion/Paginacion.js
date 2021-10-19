@@ -41,7 +41,6 @@ const Paginacion = ({
     }
 
     const ListarPaginas = () => {
-
         if (pages.totalPag) {
             setUltimaPag(pages.totalPag)
             setPlantPaginas(

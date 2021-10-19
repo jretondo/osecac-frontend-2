@@ -5,8 +5,6 @@ import {
     UncontrolledDropdown,
     DropdownToggle
 } from "reactstrap"
-import formatDate from '../../../../Function/FormatDate'
-import NumberFormat from '../../../../Function/NumberFormat'
 import swal from 'sweetalert'
 import axios from 'axios'
 import UrlNodeServer from '../../../../api/NodeServer'
@@ -27,7 +25,9 @@ const FilaAgencias = ({
     setEsperar,
     primero,
     pagina,
-    setPagina
+    setPagina,
+    setDetallesBool,
+    setIdDetalle
 }) => {
 
     const EliminarAgencia = (e, nombre, id) => {
@@ -75,6 +75,11 @@ const FilaAgencias = ({
             });
     }
 
+    const VerDetalles = (id) => {
+        setIdDetalle(id)
+        setDetallesBool(true)
+    }
+
     return (
         <tr key={id}>
             <td style={{ textAlign: "center", fontWeight: "bold" }}>
@@ -99,6 +104,16 @@ const FilaAgencias = ({
                         <i className="fas fa-ellipsis-v" />
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-arrow" right>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={e => {
+                                e.preventDefault();
+                                VerDetalles(item.id);
+                            }}
+                        >
+                            <i className="fas fa-trash"></i>
+                            Ver Detalle
+                        </DropdownItem>
                         <DropdownItem
                             href="#pablo"
                             onClick={e => EliminarAgencia(e, item.raz_soc, item.id)}

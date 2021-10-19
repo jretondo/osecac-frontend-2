@@ -3,17 +3,13 @@ import UrlNodeServer from '../../../api/NodeServer'
 import Header from "components/Headers/Header.js"
 import {
     Spinner,
-    Container,
-    Row,
-    Col,
-    Card,
-    CardBody,
-    CardHeader
+    Container
 } from "reactstrap";
 import { Redirect } from "react-router-dom"
 import { UseSecureRoutes } from "Hooks/UseSecureRoutes";
 import ListaAgencias from './components/listAgencias'
 import { UseActivity } from "Hooks/UseActivity";
+import Alert1 from "components/subComponents/alerts/Alerta1";
 
 const Index = () => {
     const [call, setCall] = useState(false)
@@ -21,10 +17,6 @@ const Index = () => {
     const [msgStrongAlert, setMsgStrong] = useState("")
     const [msgGralAlert, setMsgGralAlert] = useState("")
     const [successAlert, setSuccessAlert] = useState(false)
-    const [pagina, setPagina] = useState(1)
-    const [plantPaginas, setPlantPaginas] = useState([])
-    const [ultimaPag, setUltimaPag] = useState(0)
-    const [pages, setPages] = useState([])
 
     const [nvaActCall, setNvaActCall] = useState(false)
     const [actividadStr, setActividadStr] = useState("")
@@ -60,10 +52,15 @@ const Index = () => {
     } else {
         return (
             <>
+                <Alert1
+                    success={successAlert}
+                    msgStrong={msgStrongAlert}
+                    msgGral={msgGralAlert}
+                    alertar={alertar}
+                />
                 <Header />
                 <Container className="mt--7" fluid>
                     <ListaAgencias
-                        pagina={pagina}
                         setActividadStr={setActividadStr}
                         nvaActCall={nvaActCall}
                         setNvaActCall={setNvaActCall}
@@ -72,11 +69,6 @@ const Index = () => {
                         setMsgStrong={setMsgStrong}
                         setMsgGralAlert={setMsgGralAlert}
                         setSuccessAlert={setSuccessAlert}
-                        setCall={setCall}
-                        call={call}
-                        setUltimaPag={setUltimaPag}
-                        setPages={setPages}
-                        setPagina={setPagina}
                     />
                 </Container>
             </>
