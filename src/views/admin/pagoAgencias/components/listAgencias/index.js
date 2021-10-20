@@ -34,6 +34,7 @@ const ListaExtractos = ({
     const [windowToggle, setWindowToggle] = useState(false)
     const [detallesBool, setDetallesbool] = useState(false)
     const [idDetalle, setIdDetalle] = useState(0)
+    const [agenciaDet, setAgenciaDet] = useState("")
 
     useEffect(() => {
         setFiltro(false)
@@ -63,7 +64,11 @@ const ListaExtractos = ({
                                         </button>
                                     </Col>
                                 </Row>
-                                <h2 className="mb-0" style={{ textAlign: "center" }}>Nueva Agencia</h2>
+                                {
+                                    detallesBool ?
+                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Detalles de {agenciaDet}</h2> :
+                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Nueva Agencia</h2>
+                                }
                             </>
                             :
                             <>
@@ -88,6 +93,8 @@ const ListaExtractos = ({
                             setCall={setCall}
                             call={call}
                             setNvoForm={setNvoForm}
+                            agenciaDet={agenciaDet}
+                            setAgenciaDet={setAgenciaDet}
                         />
                         :
                         <>

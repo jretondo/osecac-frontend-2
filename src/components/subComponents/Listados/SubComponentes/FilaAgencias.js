@@ -111,7 +111,7 @@ const FilaAgencias = ({
                                 VerDetalles(item.id);
                             }}
                         >
-                            <i className="fas fa-trash"></i>
+                            <i className="fas fa-search"></i>
                             Ver Detalle
                         </DropdownItem>
                         <DropdownItem
