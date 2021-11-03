@@ -10,6 +10,7 @@ import { UseSecureRoutes } from "Hooks/UseSecureRoutes";
 import ListaAgencias from './components/listAgencias'
 import { UseActivity } from "Hooks/UseActivity";
 import Alert1 from "components/subComponents/alerts/Alerta1";
+import TxtGeneratorPay from "./components/txt";
 
 const Index = () => {
     const [call, setCall] = useState(false)
@@ -61,6 +62,17 @@ const Index = () => {
                 <Header />
                 <Container className="mt--7" fluid>
                     <ListaAgencias
+                        setActividadStr={setActividadStr}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                    />
+                    <TxtGeneratorPay
+                        call={call}
                         setActividadStr={setActividadStr}
                         nvaActCall={nvaActCall}
                         setNvaActCall={setNvaActCall}

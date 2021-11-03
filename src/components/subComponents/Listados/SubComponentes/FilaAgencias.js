@@ -27,7 +27,8 @@ const FilaAgencias = ({
     pagina,
     setPagina,
     setDetallesBool,
-    setIdDetalle
+    setIdDetalle,
+    setNvoForm
 }) => {
 
     const EliminarAgencia = (e, nombre, id) => {
@@ -76,6 +77,7 @@ const FilaAgencias = ({
     }
 
     const VerDetalles = (id) => {
+        setNvoForm(true)
         setIdDetalle(id)
         setDetallesBool(true)
     }

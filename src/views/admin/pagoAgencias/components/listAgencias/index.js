@@ -21,7 +21,7 @@ const ListaExtractos = ({
     setAlertar,
     setMsgStrong,
     setMsgGralAlert,
-    setSuccessAlert,
+    setSuccessAlert
 }) => {
     const [call, setCall] = useState(false)
     const [filtro, setFiltro] = useState(false)
@@ -86,6 +86,14 @@ const ListaExtractos = ({
                 {
                     nvoForm ?
                         <FormAgencia
+                            setMsgStrong={setMsgStrong}
+                            setMsgGralAlert={setMsgGralAlert}
+                            setSuccessAlert={setSuccessAlert}
+                            setAlertar={setAlertar}
+                            alertar={alertar}
+                            setActividadStr={setActividadStr}
+                            setNvaActCall={setNvaActCall}
+                            nvaActCall={nvaActCall}
                             detallesBool={detallesBool}
                             idDetalle={idDetalle}
                             setDetallesBool={setDetallesbool}
@@ -127,6 +135,8 @@ const ListaExtractos = ({
                                 filtroStr={filtroStr}
                                 setDetallesBool={setDetallesbool}
                                 setIdDetalle={setIdDetalle}
+                                nvoForm={nvoForm}
+                                setNvoForm={setNvoForm}
                             />
                             <CardFooter>
                                 <Row>

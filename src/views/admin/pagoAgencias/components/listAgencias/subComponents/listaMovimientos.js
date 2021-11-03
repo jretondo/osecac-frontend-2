@@ -27,7 +27,8 @@ const ListaExtractos = ({
     setPages,
     filtroStr,
     setDetallesBool,
-    setIdDetalle
+    setIdDetalle,
+    setNvoForm
 }) => {
     const [listado, setListado] = useState(<></>)
     const [loading, setLoading] = useState(false)
@@ -102,6 +103,7 @@ const ListaExtractos = ({
                                     setPagina={setPagina}
                                     setDetallesBool={setDetallesBool}
                                     setIdDetalle={setIdDetalle}
+                                    setNvoForm={setNvoForm}
                                 />
                             )
                         })

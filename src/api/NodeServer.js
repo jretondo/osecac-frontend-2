@@ -36,7 +36,9 @@ const authDir = {
 const proveedoresDir = {
     proveedores,
     sub: {
-        getOne: proveedores + "/get"
+        getOne: proveedores + "/get",
+        newTxt: proveedores + "/newTxt",
+        list2: proveedores + "/list2"
     }
 }
 
