@@ -12,6 +12,7 @@ const routes = host + "/routes"
 const extractos = host + "/extractos"
 const conciliacion = host + "/conciliacion"
 const proveedores = host + "/proveedores"
+const actividadApp = host + "/actividadApp"
 
 const userDir = {
     user,
@@ -19,6 +20,10 @@ const userDir = {
         getUser: user + "/get",
         recPass: user + "/recPass"
     }
+}
+
+const actividadAppDir = {
+    actividadApp
 }
 
 const permissionsDir = {
@@ -87,7 +92,8 @@ const UrlNodeServer = {
     routesDir,
     extractosDir,
     conciliacionDir,
-    proveedoresDir
+    proveedoresDir,
+    actividadAppDir
 }
 
 export default UrlNodeServer

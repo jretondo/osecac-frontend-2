@@ -17,7 +17,7 @@ export const UseActivity = (call, actividad) => {
             }
 
             try {
-                let res = await fetch(UrlNodeServer.NvaActividad, {
+                let res = await fetch(UrlNodeServer.actividadAppDir.actividadApp, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

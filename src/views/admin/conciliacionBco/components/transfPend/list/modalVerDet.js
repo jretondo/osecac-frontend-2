@@ -12,7 +12,7 @@ import {
     Spinner
 } from 'reactstrap';
 
-const ModalTypeList = ({
+const ModalVerDet = ({
     modal,
     setModal,
     idMov,
@@ -74,4 +74,4 @@ const ModalTypeList = ({
     )
 }
 
-export default ModalTypeList
+export default ModalVerDet
