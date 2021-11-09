@@ -7,7 +7,6 @@ import {
 } from "reactstrap"
 import formatMoney from 'Function/NumberFormat'
 import ModalAddObs from './modalAddObs'
-import ModalVerDet from './modalVerDet'
 import moment from 'moment'
 import UrlNodeServer from '../../../../../../api/NodeServer'
 import axios from 'axios'
@@ -29,14 +28,9 @@ const FilaMovSin = ({
 }) => {
 
     const [modal, setModal] = useState(false)
-    const [modal1, setModal1] = useState(false)
 
     const AddObs = () => {
         setModal(true)
-    }
-
-    const verDet = () => {
-        setModal1(true)
     }
 
     const ChangeTypeMov = async () => {
@@ -123,17 +117,7 @@ const FilaMovSin = ({
                                 }}
                             >
                                 <i className="fas fa-eye"></i>
-                                Agregar Observación
-                            </DropdownItem>
-                            <DropdownItem
-                                href="#pablo"
-                                onClick={e => {
-                                    e.preventDefault();
-                                    verDet();
-                                }}
-                            >
-                                <i className="fas fa-search"></i>
-                                Ver Detalles
+                                Detalles
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
@@ -143,21 +127,6 @@ const FilaMovSin = ({
                 modal={modal}
                 setModal={setModal}
                 item={item}
-                setActividadStr={setActividadStr}
-                nvaActCall={nvaActCall}
-                setNvaActCall={setNvaActCall}
-                alertar={alertar}
-                setAlertar={setAlertar}
-                setMsgStrong={setMsgStrong}
-                setMsgGralAlert={setMsgGralAlert}
-                setSuccessAlert={setSuccessAlert}
-                setCall={setCall}
-                call={call}
-            />
-            <ModalVerDet
-                modal={modal1}
-                setModal={setModal1}
-                idMov={item.id}
                 setActividadStr={setActividadStr}
                 nvaActCall={nvaActCall}
                 setNvaActCall={setNvaActCall}

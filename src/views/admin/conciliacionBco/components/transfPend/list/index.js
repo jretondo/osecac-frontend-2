@@ -143,7 +143,7 @@ const ListSinMov = ({
             }
         }
         setLoading(true)
-        await axios.get(UrlNodeServer.extractosDir.sub.download, {
+        await axios.get(UrlNodeServer.conciliacionDir.sub.download, {
             responseType: 'arraybuffer',
             params: data,
             headers: {

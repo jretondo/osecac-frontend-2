@@ -32,11 +32,13 @@ const ModalAddObs = ({
 }) => {
     const [loading, setLoading] = useState(false)
     const [observaciones, setObservaciones] = useState(item.obs)
+    const [concepto, setConcepto] = useState(item.descripcion === "" ? item.concepto : `${item.descripcion}`)
 
     const ActualizarObs = async () => {
         const datos = {
             set: {
-                obs: observaciones
+                obs: observaciones,
+                descripcion: concepto
             }
         }
 
@@ -99,6 +101,14 @@ const ModalAddObs = ({
                                             <FormGroup>
                                                 <Label for="importeTxt">Importe:</Label>
                                                 <Input type="number" id="importeTxt" value={(item.monto)} disabled />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md="12">
+                                            <FormGroup>
+                                                <Label for="conceptoTxt">Concepto:</Label>
+                                                <Input type="text" id="conceptoTxt" value={concepto} onChange={e => setConcepto(e.target.value)} />
                                             </FormGroup>
                                         </Col>
                                     </Row>
