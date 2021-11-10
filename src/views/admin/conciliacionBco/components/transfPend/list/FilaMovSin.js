@@ -74,7 +74,7 @@ const FilaMovSin = ({
 
     return (
         <>
-            <tr key={id}>
+            <tr key={id} style={parseInt(item.transf_int) === 1 ? { background: "#f44c4c", color: "white" } : {}} >
                 <td style={{ textAlign: "center" }}>
                     {moment(item.fecha).format("DD/MM/YYYY")}
                 </td>
@@ -83,8 +83,11 @@ const FilaMovSin = ({
                         item.descripcion === "" ? item.concepto : `Cred Transf ${item.descripcion}`
                     }
                 </td>
-                <td style={parseInt(item.monto) > 0 ? { textAlign: "right", color: "green", fontWeight: "bold" } : { textAlign: "right", color: "red", fontWeight: "bold" }}>
+                <td style={{ textAlign: "right", fontWeight: "bold" }}>
                     $ {formatMoney(item.monto)}
+                </td>
+                <td>
+                    {item.obs !== null ? <i className="fas fa-eye"></i> : null}
                 </td>
                 <td className="text-right">
                     <UncontrolledDropdown>

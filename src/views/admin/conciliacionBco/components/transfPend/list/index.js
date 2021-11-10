@@ -15,7 +15,7 @@ import FilaMovSin from './FilaMovSin'
 import moment from 'moment'
 import FileSaver from 'file-saver'
 
-const titulos = ["Fecha", "Descripción", "Monto", ""]
+const titulos = ["Fecha", "Descripción", "Monto", "Obs", ""]
 
 const ListSinMov = ({
     setActividadStr,

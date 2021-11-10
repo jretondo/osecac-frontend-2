@@ -33,25 +33,29 @@ const ModalAddObs = ({
     const [loading, setLoading] = useState(false)
     const [observaciones, setObservaciones] = useState(item.obs)
     const [concepto, setConcepto] = useState(item.descripcion === "" ? item.concepto : `${item.descripcion}`)
+    const [rendicionBool, setRendicionBool] = useState(item.transf_int)
 
     useEffect(() => {
         setConcepto(item.descripcion === "" ? item.concepto : `${item.descripcion}`)
+        setRendicionBool(item.transf_int)
     }, [item])
 
     const ActualizarObs = async () => {
         const datos = {
             set: {
                 obs: observaciones,
+                transf_int: rendicionBool,
                 descripcion: concepto
             }
         }
-
+        setLoading(true)
         await axios.patch(`${UrlNodeServer.conciliacionDir.conciliacion}/${item.id}`, datos, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('user-token')
             }
         })
             .then(res => {
+                setLoading(false)
                 const respuesta = res.data
                 const status = parseInt(respuesta.status)
                 if (status === 200) {
@@ -73,11 +77,11 @@ const ModalAddObs = ({
                 }
             })
             .catch(() => {
+                setLoading(false)
                 setMsgStrong("Hubo un error al querer actualizar la observación!")
                 setMsgGralAlert("")
                 setSuccessAlert(false)
                 setAlertar(!alertar)
-                setLoading(false)
             })
     }
 
@@ -113,6 +117,17 @@ const ModalAddObs = ({
                                             <FormGroup>
                                                 <Label for="conceptoTxt">Concepto:</Label>
                                                 <Input type="text" id="conceptoTxt" value={concepto} onChange={e => setConcepto(e.target.value)} />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md="12">
+                                            <FormGroup>
+                                                <Label for="coseguroTxt">Es rendición de coseguro:</Label>
+                                                <Input type="select" id="coseguroTxt" onChange={e => setRendicionBool(e.target.value)} value={rendicionBool} >
+                                                    <option value={0}>No</option>
+                                                    <option value={1}>Si</option>
+                                                </Input>
                                             </FormGroup>
                                         </Col>
                                     </Row>
