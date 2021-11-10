@@ -68,7 +68,8 @@ const conciliacionDir = {
     conciliacion,
     sub: {
         transferencias: conciliacion + "/transf",
-        download: conciliacion + "/download/"
+        download: conciliacion + "/download/",
+        excel: conciliacion + "/excel/"
     }
 }
 

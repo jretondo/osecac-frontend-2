@@ -171,6 +171,52 @@ const ListSinMov = ({
             })
     }
 
+    const DescargarExtrExcel = async () => {
+        let data
+        if (pend) {
+            data = {
+                desde: desde,
+                hasta: hasta,
+                pend: pend,
+                busqueda: busqueda,
+                importe: importe
+            }
+        } else {
+            data = {
+                desde: desde,
+                hasta: hasta,
+                busqueda: busqueda,
+                importe: importe
+            }
+        }
+        setLoading(true)
+        await axios.get(UrlNodeServer.conciliacionDir.sub.excel, {
+            responseType: 'arraybuffer',
+            params: data,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('user-token'),
+                Accept: 'application/vnd.ms-excel',
+            }
+        })
+            .then(res => {
+                var blob = new Blob([res.data], { type: 'application/vnd.ms-excel' })
+                FileSaver.saveAs(blob, "Transferencias.xls");
+                setLoading(false)
+                setMsgStrong("Extracto descargado con éxito! ")
+                setMsgGralAlert("")
+                setSuccessAlert(true)
+                setAlertar(!alertar)
+            })
+            .catch((err) => {
+                console.error(err)
+                setMsgStrong("Hubo un error al querer descargar el Extracto")
+                setMsgGralAlert("")
+                setSuccessAlert(false)
+                setAlertar(!alertar)
+                setLoading(false)
+            })
+    }
+
     if (loading) {
         return (
             <div style={{ textAlign: "center", marginTop: "100px" }}>
@@ -231,7 +277,7 @@ const ListSinMov = ({
                         <Col style={{ textAlign: "center" }}>
                             <Row>
                                 <Col col="12">
-                                    <button className="btn btn-primary" type="submit" style={{ marginTop: "12%", width: "100%" }}>
+                                    <button className="btn btn-primary" type="submit" style={{ marginTop: "5%", width: "100%" }}>
                                         <Row>
                                             <Col style={{ textAlign: "center" }}>
                                                 Buscar <i className="fas fa-search" style={{ marginLeft: "10px" }}></i>
@@ -242,13 +288,27 @@ const ListSinMov = ({
                             </Row>
                             <Row>
                                 <Col col="12">
-                                    <button className="btn btn-primary" type="submit" style={{ marginTop: "13%", width: "100%" }} onClick={e => {
+                                    <button className="btn btn-primary" type="submit" style={{ marginTop: "5%", width: "100%" }} onClick={e => {
                                         e.preventDefault();
                                         DescargarExtr();
                                     }}>
                                         <Row>
                                             <Col style={{ textAlign: "center" }}>
                                                 Reporte en PDF <i className="fas fa-download" style={{ marginLeft: "10px" }}></i>
+                                            </Col>
+                                        </Row>
+                                    </button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col col="12">
+                                    <button className="btn btn-primary" type="submit" style={{ marginTop: "5%", width: "100%" }} onClick={e => {
+                                        e.preventDefault();
+                                        DescargarExtrExcel();
+                                    }}>
+                                        <Row>
+                                            <Col style={{ textAlign: "center" }}>
+                                                Reporte en Excel <i className="fas fa-file-excel" style={{ marginLeft: "10px" }}></i>
                                             </Col>
                                         </Row>
                                     </button>
