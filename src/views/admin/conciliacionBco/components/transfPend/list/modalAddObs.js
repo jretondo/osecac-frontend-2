@@ -1,6 +1,6 @@
 import UrlNodeServer from '../../../../../../api/NodeServer';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment'
 import {
     Col,
@@ -33,6 +33,10 @@ const ModalAddObs = ({
     const [loading, setLoading] = useState(false)
     const [observaciones, setObservaciones] = useState(item.obs)
     const [concepto, setConcepto] = useState(item.descripcion === "" ? item.concepto : `${item.descripcion}`)
+
+    useEffect(() => {
+        setConcepto(item.descripcion === "" ? item.concepto : `${item.descripcion}`)
+    }, [item])
 
     const ActualizarObs = async () => {
         const datos = {
