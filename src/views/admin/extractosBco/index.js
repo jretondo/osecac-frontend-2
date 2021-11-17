@@ -20,6 +20,7 @@ import ListaExtractos from './components/ListaExtractos'
 import ListaMov from './components/ListaMov'
 import ExcelProcess from './components/excelProcess'
 import MovSinIdentificar from "./components/movSin";
+import BuscarMov from "./components/buscarMov";
 
 const ProductsItems = () => {
     const [alertar, setAlertar] = useState(false)
@@ -179,6 +180,11 @@ const ProductsItems = () => {
                                     call={call}
                                     setDetBool={setDetBool}
                                 />
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: "30px" }}>
+                            <Col>
+                                <BuscarMov />
                             </Col>
                         </Row>
                     </>

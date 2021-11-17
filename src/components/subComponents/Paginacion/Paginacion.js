@@ -41,7 +41,7 @@ const Paginacion = ({
     }
 
     const ListarPaginas = () => {
-        if (pages.totalPag) {
+        if (pages.totalPag > 0) {
             setUltimaPag(pages.totalPag)
             setPlantPaginas(
                 pages.cantTotal.map((paginaList, key) => {
@@ -56,6 +56,17 @@ const Paginacion = ({
                         </PaginationItem>
                     )
                 })
+            )
+        } else {
+            setPlantPaginas(
+                <PaginationItem className={"active"} >
+                    <PaginationLink
+                        href="#x"
+                        onClick={e => e.preventDefault()}
+                    >
+                        {1}
+                    </PaginationLink>
+                </PaginationItem>
             )
         }
     }

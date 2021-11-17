@@ -5,24 +5,28 @@ const ButtonToggle = ({
     symbol,
     textToDo,
     toogle,
-    setToggle
+    setToggle,
+    tittle
 }) => {
     const [tooltipOpen, setTooltipOpen] = useState(false);
 
     return (
         <Row>
             <Col md="12" style={{ textAlign: "right" }}>
-                <button
-                    id="minim1"
-                    className="btn btn-primary"
-                    onClick={e => {
-                        e.preventDefault();
-                        setToggle(!toogle)
-                    }}
-                    style={{ width: "50px", margin: 0 }}>
-                    {symbol}
-                </button>
-                <Tooltip placement="right" isOpen={tooltipOpen} target="minim1" toggle={() => setTooltipOpen(!tooltipOpen)}>
+                <h2 className="mb-0" style={{ textAlign: "center" }}>
+                    {tittle}
+                    <button
+                        id="minim1"
+                        className="btn btn-primary"
+                        onClick={e => {
+                            e.preventDefault();
+                            setToggle(!toogle)
+                        }}
+                        style={{ width: "50px", margin: 0 }}>
+                        {symbol}
+                    </button>
+                </h2>
+                <Tooltip placement="top" isOpen={tooltipOpen} target="minim1" toggle={() => setTooltipOpen(!tooltipOpen)}>
                     {textToDo}
                 </Tooltip>
             </Col>

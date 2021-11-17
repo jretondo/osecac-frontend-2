@@ -82,7 +82,8 @@ const extractosDir = {
         removeId: extractos + "/removeId/",
         calcGstos: extractos + "/calcGstos",
         sinAsignar: extractos + "/sin",
-        tiposmov: extractos + "/tiposMov"
+        tiposmov: extractos + "/tiposMov",
+        busqueda: extractos + "/busqueda"
     }
 }
 

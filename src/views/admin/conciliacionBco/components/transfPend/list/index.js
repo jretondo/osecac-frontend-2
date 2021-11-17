@@ -248,7 +248,7 @@ const ListSinMov = ({
                                 <Col md={3}>
                                     <FormGroup>
                                         <Label for="importeTxt">Importe:{" "}</Label>
-                                        <Input type="number" id="importeTxt" value={importe} onChange={e => { setImporte(e.target.value) }} min={desde} />
+                                        <Input type="number" id="importeTxt" value={importe} onChange={e => { setImporte(e.target.value) }} step={0.01} min={0.01} />
                                     </FormGroup>
                                 </Col>
                                 <Col md={3}>
