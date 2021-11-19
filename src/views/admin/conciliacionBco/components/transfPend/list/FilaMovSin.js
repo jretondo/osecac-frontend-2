@@ -33,10 +33,14 @@ const FilaMovSin = ({
         setModal(true)
     }
 
-    const ChangeTypeMov = async () => {
+    const ChangeTypeMov = async (marcar) => {
+        let marca = 1
+        if (marcar) {
+            marca = 0
+        }
         const datos = {
             set: {
-                conciliado: 1
+                conciliado: marca
             }
         }
         setEsperar(true)
@@ -106,11 +110,11 @@ const FilaMovSin = ({
                                 href="#pablo"
                                 onClick={e => {
                                     e.preventDefault();
-                                    ChangeTypeMov();
+                                    ChangeTypeMov(item.conciliado);
                                 }}
                             >
                                 <i className="fas fa-check"></i>
-                                Contabilizar
+                                {item.conciliado ? "Desmarcar" : "Marcar como rendida"}
                             </DropdownItem>
                             <DropdownItem
                                 href="#pablo"

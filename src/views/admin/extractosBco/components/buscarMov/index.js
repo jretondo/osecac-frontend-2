@@ -106,8 +106,6 @@ const BuscarMov = ({
                     />
                     <h2 className="mb-0" style={{ textAlign: "center" }}>Busqueda de Movimientos</h2>
                 </CardHeader>
-                <CardBody>
-                </CardBody>
             </Card>
         )
     }

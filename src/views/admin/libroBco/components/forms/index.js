@@ -123,7 +123,8 @@ const FormsLibro = () => {
                         tittle=" Libro Banco"
                     />
                 </CardHeader>
-            </Card>)
+            </Card>
+        )
     }
 }
 

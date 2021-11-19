@@ -13,6 +13,7 @@ const extractos = host + "/extractos"
 const conciliacion = host + "/conciliacion"
 const proveedores = host + "/proveedores"
 const actividadApp = host + "/actividadApp"
+const libroBco = host + "/libroBco"
 
 const userDir = {
     user,
@@ -87,6 +88,14 @@ const extractosDir = {
     }
 }
 
+const libroBcoDir = {
+    libroBco,
+    sub: {
+        talonarios: "/talonarios",
+        verificaTalonario: "//talonarios/verifica"
+    }
+}
+
 const UrlNodeServer = {
     userDir,
     permissionsDir,
@@ -95,7 +104,8 @@ const UrlNodeServer = {
     extractosDir,
     conciliacionDir,
     proveedoresDir,
-    actividadAppDir
+    actividadAppDir,
+    libroBcoDir
 }
 
 export default UrlNodeServer

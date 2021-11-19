@@ -47,16 +47,12 @@ const MovSinIdentificar = ({
             <Card className="shadow">
                 <CardHeader className="border-0">
                     <ButtonToggle
-                        symbol={
-                            windowToggle ? "-" : "+"
-                        }
-                        textToDo={
-                            windowToggle ? "Minimizar" : "Maximizar"
-                        }
+                        symbol={windowToggle ? "-" : "+"}
+                        textToDo={windowToggle ? "Minimizar" : "Maximizar"}
                         toogle={windowToggle}
                         setToggle={setWindowToggle}
                     />
-                    <h2 className="mb-0" style={{ textAlign: "center" }}>Transferencias sin contabilizar</h2>
+                    <h2 className="mb-0" style={{ textAlign: "center" }}>Transferencias</h2>
                 </CardHeader>
                 <CardBody>
                     <Listado
@@ -80,19 +76,13 @@ const MovSinIdentificar = ({
             <Card className="shadow">
                 <CardHeader className="border-0">
                     <ButtonToggle
-                        symbol={
-                            windowToggle ? "-" : "+"
-                        }
-                        textToDo={
-                            windowToggle ? "Minimizar" : "Maximizar"
-                        }
+                        symbol={windowToggle ? "-" : "+"}
+                        textToDo={windowToggle ? "Minimizar" : "Maximizar"}
                         toogle={windowToggle}
                         setToggle={setWindowToggle}
                     />
-                    <h2 className="mb-0" style={{ textAlign: "center" }}>Transferencias sin contabilizar</h2>
+                    <h2 className="mb-0" style={{ textAlign: "center" }}>Transferencias</h2>
                 </CardHeader>
-                <CardBody>
-                </CardBody>
             </Card>
         )
     }

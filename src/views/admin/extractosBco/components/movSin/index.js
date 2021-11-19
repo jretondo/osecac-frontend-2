@@ -91,8 +91,6 @@ const MovSinIdentificar = ({
                     />
                     <h2 className="mb-0" style={{ textAlign: "center" }}>Movimientos sin asignar</h2>
                 </CardHeader>
-                <CardBody>
-                </CardBody>
             </Card>
         )
     }

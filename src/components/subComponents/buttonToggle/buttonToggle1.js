@@ -20,9 +20,9 @@ const ButtonToggle = ({
                         className="btn btn-primary"
                         onClick={e => {
                             e.preventDefault();
-                            setToggle(!toogle)
+                            setToggle(!toogle);
                         }}
-                        style={{ width: "50px", margin: 0 }}>
+                        style={{ width: "50px", margin: 0, position: "absolute", right: 0, top: "-5px" }}>
                         {symbol}
                     </button>
                 </h2>
