@@ -7,7 +7,16 @@ import {
 } from "reactstrap";
 import ListaChqBol from './listaChqBol'
 
-const ChqBol = () => {
+const ChqBol = ({
+    setMsgStrong,
+    setMsgGralAlert,
+    setSuccessAlert,
+    nvaActCall,
+    setNvaActCall,
+    setActividadStr,
+    alertar,
+    setAlertar
+}) => {
     const [windowToggle, setWindowToggle] = useState(false)
 
     if (windowToggle) {
@@ -23,7 +32,16 @@ const ChqBol = () => {
                     <h2 className="mb-0" style={{ textAlign: "center" }}>Chequeras y Boletas (talonarios)</h2>
                 </CardHeader>
                 <CardBody>
-                    <ListaChqBol />
+                    <ListaChqBol
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        setActividadStr={setActividadStr}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                    />
                 </CardBody>
             </Card>
         )

@@ -9,12 +9,26 @@ import { Redirect } from "react-router-dom"
 import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
 import FormsLibro from './components/forms/'
 import ChqBolComp from './components/chqBol'
+import AlertaForm from '../../../components/subComponents/alerts/Alerta1'
+import { UseActivity } from "Hooks/UseActivity";
 
 const Index = () => {
+    const [alertar, setAlertar] = useState(false)
+    const [msgStrongAlert, setMsgStrong] = useState("")
+    const [msgGralAlert, setMsgGralAlert] = useState("")
+    const [successAlert, setSuccessAlert] = useState(false)
+    const [nvaActCall, setNvaActCall] = useState(false)
+    const [actividadStr, setActividadStr] = useState("")
+
     const [call, setCall] = useState(false)
     const { loading, error } = UseSecureRoutes(
         UrlNodeServer.routesDir.sub.libroBanco,
         call
+    )
+
+    UseActivity(
+        nvaActCall,
+        actividadStr
     )
 
     useEffect(() => {
@@ -40,11 +54,26 @@ const Index = () => {
         return (
             <>
                 <Header />
+                <AlertaForm
+                    success={successAlert}
+                    msgStrong={msgStrongAlert}
+                    msgGral={msgGralAlert}
+                    alertar={alertar}
+                />
                 <Container className="mt--7" fluid>
 
                     <FormsLibro />
 
-                    <ChqBolComp />
+                    <ChqBolComp
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        setActividadStr={setActividadStr}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                    />
 
                 </Container>
             </>

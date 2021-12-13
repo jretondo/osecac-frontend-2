@@ -91,8 +91,8 @@ const extractosDir = {
 const libroBcoDir = {
     libroBco,
     sub: {
-        talonarios: "/talonarios",
-        verificaTalonario: "//talonarios/verifica"
+        talonarios: libroBco + "/talonarios",
+        verificaTalonario: libroBco + "/talonarios/verifica"
     }
 }
 
