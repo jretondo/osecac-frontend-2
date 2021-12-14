@@ -4,8 +4,9 @@ import axios from 'axios'
 import ListadoTable from 'components/subComponents/Listados/ListadoTable'
 import FilaTransf from 'components/subComponents/Listados/SubComponentes/FilaTransf'
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Spinner } from 'reactstrap'
+import { Col, Container, FormGroup, Input, Label, Row, Spinner } from 'reactstrap'
 import FileSaver from 'file-saver'
+import formatMoney from 'Function/NumberFormat'
 
 const titulos = ["Agencia", "CBU", "Refencia", "Monto", ""]
 
@@ -20,9 +21,11 @@ const ListaTransf = ({
 }) => {
     const [listado, setListado] = useState(<></>)
     const [loading, setLoading] = useState(false)
+    const [totalStr, setTotalStr] = useState("$ 0,00")
 
     useEffect(() => {
         ListarPagos()
+        CalculoTotal()
         // eslint-disable-next-line
     }, [arrayPagos.length])
 
@@ -77,8 +80,24 @@ const ListaTransf = ({
         } catch (error) {
             setListado(<></>)
         }
-
     }
+
+    const CalculoTotal = () => {
+        const cantTotal = parseInt(arrayPagos.length)
+        let totalDouble = 0
+        if (cantTotal > 0) {
+            // eslint-disable-next-line
+            arrayPagos.map((item, key) => {
+                const importe = (Math.round((parseFloat(item.importe) * 100)) / 100)
+                totalDouble = totalDouble + importe
+                if (key === (cantTotal - 1)) {
+                    console.log(`totalDouble`, totalDouble)
+                    setTotalStr("$ " + formatMoney(totalDouble, 2))
+                }
+            })
+        }
+    }
+
     if (loading) {
         return (
             <div style={{ textAlign: "center", marginTop: "100px" }}>
@@ -128,6 +147,14 @@ const ListaTransf = ({
                         >
                             Cancelar
                         </button>
+                    </Col>
+                </Row>
+                <Row style={{ borderTop: "2px solid red" }} >
+                    <Col md="4" style={{ marginLeft: "auto", marginTop: "20px" }}>
+                        <FormGroup>
+                            <Label style={{ fontSize: "22px", fontWeight: "bold" }}>Total</Label>
+                            <Input type="text" name="text" style={{ fontSize: "22px", fontWeight: "bold", textAlign: "right" }} value={totalStr} disabled />
+                        </FormGroup>
                     </Col>
                 </Row>
             </Container>
