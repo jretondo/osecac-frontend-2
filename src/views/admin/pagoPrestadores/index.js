@@ -12,9 +12,24 @@ import {
 } from "reactstrap";
 import { Redirect } from "react-router-dom"
 import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
+import ListPresta from "./components/listPresta";
+import { UseActivity } from "Hooks/UseActivity";
+import Alert1 from "components/subComponents/alerts/Alerta1";
 
 const Index = () => {
     const [call, setCall] = useState(false)
+    const [alertar, setAlertar] = useState(false)
+    const [msgStrongAlert, setMsgStrong] = useState("")
+    const [msgGralAlert, setMsgGralAlert] = useState("")
+    const [successAlert, setSuccessAlert] = useState(false)
+
+    const [nvaActCall, setNvaActCall] = useState(false)
+    const [actividadStr, setActividadStr] = useState("")
+    UseActivity(
+        nvaActCall,
+        actividadStr
+    )
+
     const { loading, error } = UseSecureRoutes(
         UrlNodeServer.routesDir.sub.pagoPrestadores,
         call
@@ -42,19 +57,24 @@ const Index = () => {
     } else {
         return (
             <>
+                <Alert1
+                    success={successAlert}
+                    msgStrong={msgStrongAlert}
+                    msgGral={msgGralAlert}
+                    alertar={alertar}
+                />
                 <Header />
                 <Container className="mt--7" fluid>
-                    <Card className="shadow">
-                        <CardHeader className="bg-transparent">
-                            <Row className="align-items-center">
-                                <Col>
-                                    <h2 className="mb-0">Panel de Control</h2>
-                                </Col>
-                            </Row>
-                        </CardHeader>
-                        <CardBody>
-                        </CardBody>
-                    </Card>
+                    <ListPresta
+                        setActividadStr={setActividadStr}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                    />
                 </Container>
             </>
         )

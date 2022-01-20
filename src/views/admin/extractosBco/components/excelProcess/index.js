@@ -148,7 +148,14 @@ const ExcelProcessForm = ({
             </Card>
         )
     } else {
-        if (excelSelect) {
+        if (loading) {
+            return (
+                <>
+                    <div style={{ textAlign: "center", marginTop: "100px" }}>
+                        <Spinner type="grow" color="primary" style={{ width: "100px", height: "100px" }} /> </div>
+                </>
+            )
+        } else if (excelSelect) {
             return (
                 <>
                     <Card className="shadow">
@@ -187,13 +194,6 @@ const ExcelProcessForm = ({
                             </Col>
                         </Row>
                     </Card>
-                </>
-            )
-        } else if (loading) {
-            return (
-                <>
-                    <div style={{ textAlign: "center", marginTop: "100px" }}>
-                        <Spinner type="grow" color="primary" style={{ width: "100px", height: "100px" }} /> </div>
                 </>
             )
         } else {

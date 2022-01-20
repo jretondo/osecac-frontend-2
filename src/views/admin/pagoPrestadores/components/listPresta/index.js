@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import {
-    Card,
-    CardFooter,
-    CardHeader,
-} from "reactstrap"
-import ListaAgencias from './subComponents/listaMovimientos'
-import FiltroComp from './subComponents/filtro'
-import Row from 'reactstrap/lib/Row'
-import Col from 'reactstrap/lib/Col'
-import ButtonToggle from 'components/subComponents/buttonToggle/buttonToggle1'
-import CardBody from 'reactstrap/lib/CardBody'
-import Paginacion from 'components/subComponents/Paginacion/Paginacion'
-import FormAgencia from './subComponents/formAgencia'
+import ButtonToggle from 'components/subComponents/buttonToggle/buttonToggle1';
+import Paginacion from 'components/subComponents/Paginacion/Paginacion';
+import React, { useState } from 'react'
+import { Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
+import FiltroComp from './filtro';
+import FormPresta from '../formPresta'
+import ListadoPresta from './lista'
 
-const ListaExtractos = ({
+const ListPresta = ({
     setActividadStr,
     nvaActCall,
     setNvaActCall,
@@ -30,21 +23,11 @@ const ListaExtractos = ({
     const [plantPaginas, setPlantPaginas] = useState([])
     const [ultimaPag, setUltimaPag] = useState(0)
     const [pages, setPages] = useState([])
-    const [nvoForm, setNvoForm] = useState(false)
     const [windowToggle, setWindowToggle] = useState(false)
-    const [detallesBool, setDetallesbool] = useState(false)
+    const [nvoForm, setNvoForm] = useState(false)
+    const [detallesBool, setDetallesBool] = useState(false)
+    const [prestaNombre, setPrestaNombre] = useState("")
     const [idDetalle, setIdDetalle] = useState(0)
-    const [agenciaDet, setAgenciaDet] = useState("")
-
-    useEffect(() => {
-        setFiltro(false)
-        // eslint-disable-next-line
-    }, [])
-
-    useEffect(() => {
-        setPagina(1)
-        // eslint-disable-next-line
-    }, [filtro])
 
     if (windowToggle) {
         return (
@@ -65,8 +48,8 @@ const ListaExtractos = ({
                                 </Row>
                                 {
                                     detallesBool ?
-                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Detalles de {agenciaDet}</h2> :
-                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Nueva Agencia</h2>
+                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Detalles de {prestaNombre}</h2> :
+                                        <h2 className="mb-0" style={{ textAlign: "center" }}>Nuevo Prestador</h2>
                                 }
                             </>
                             :
@@ -77,14 +60,14 @@ const ListaExtractos = ({
                                     toogle={windowToggle}
                                     setToggle={setWindowToggle}
                                 />
-                                <h2 className="mb-0" style={{ textAlign: "center" }}>Agencias y dependencias</h2>
+                                <h2 className="mb-0" style={{ textAlign: "center" }}>Lista de Prestadores</h2>
                             </>
                     }
 
                 </CardHeader>
                 {
                     nvoForm ?
-                        <FormAgencia
+                        <FormPresta
                             setMsgStrong={setMsgStrong}
                             setMsgGralAlert={setMsgGralAlert}
                             setSuccessAlert={setSuccessAlert}
@@ -95,13 +78,13 @@ const ListaExtractos = ({
                             nvaActCall={nvaActCall}
                             detallesBool={detallesBool}
                             idDetalle={idDetalle}
-                            setDetallesBool={setDetallesbool}
+                            setDetallesBool={setDetallesBool}
                             setIdDetalle={setIdDetalle}
                             setCall={setCall}
                             call={call}
                             setNvoForm={setNvoForm}
-                            agenciaDet={agenciaDet}
-                            setAgenciaDet={setAgenciaDet}
+                            prestaNombre={prestaNombre}
+                            setPrestaNombre={setPrestaNombre}
                         />
                         :
                         <>
@@ -115,7 +98,7 @@ const ListaExtractos = ({
                                     />
                                 </CardBody>
                             </Card>
-                            <ListaAgencias
+                            <ListadoPresta
                                 pagina={pagina}
                                 filtro={filtro}
                                 setActividadStr={setActividadStr}
@@ -132,7 +115,7 @@ const ListaExtractos = ({
                                 setUltimaPag={setUltimaPag}
                                 setPages={setPages}
                                 filtroStr={filtroStr}
-                                setDetallesBool={setDetallesbool}
+                                setDetallesBool={setDetallesBool}
                                 setIdDetalle={setIdDetalle}
                                 nvoForm={nvoForm}
                                 setNvoForm={setNvoForm}
@@ -144,7 +127,7 @@ const ListaExtractos = ({
                                             e.preventDefault();
                                             setNvoForm(true);
                                         }}>
-                                            Nueva Agencia
+                                            Nuevo Prestador
                                         </button>
                                     </Col>
                                     <Col>
@@ -166,7 +149,6 @@ const ListaExtractos = ({
         )
     } else {
         return (
-
             <Card className="shadow" style={{ marginTop: "30px" }}>
                 <CardHeader className="border-0">
                     <ButtonToggle
@@ -175,11 +157,11 @@ const ListaExtractos = ({
                         toogle={windowToggle}
                         setToggle={setWindowToggle}
                     />
-                    <h2 className="mb-0" style={{ textAlign: "center" }}>Agencias y dependencias</h2>
+                    <h2 className="mb-0" style={{ textAlign: "center" }}>Lista de Prestadores</h2>
                 </CardHeader>
             </Card>
         )
     }
 }
 
-export default ListaExtractos
+export default ListPresta

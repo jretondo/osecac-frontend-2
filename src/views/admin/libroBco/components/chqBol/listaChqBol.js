@@ -4,8 +4,8 @@ import { Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, Moda
 import Row from 'reactstrap/lib/Row'
 import axios from 'axios'
 import UrlNodeServer from '../../../../../api/NodeServer'
-import formatMoney from 'Function/NumberFormat'
 import ModalNewTal from './modalNewTal'
+import FilaBolChq from '../../../../../components/subComponents/Listados/SubComponentes/FilaBolChq'
 
 const titulos = ["Desde", "Hasta", ""]
 
@@ -20,13 +20,96 @@ const ListaChqBol = ({
     setAlertar
 }) => {
     const [nvoTalBool, setNvoTalBool] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [listaChq, setListaChq] = useState(<tr><td>No hay chequeras cargadas</td></tr>)
     const [listaBol, setListaBol] = useState(<tr><td>No hay boletas cargadas</td></tr>)
     const [totalChq, setTotalChq] = useState(0)
     const [totalBol, setTotalBol] = useState(0)
+    const [call, setCall] = useState(false)
+
+    useEffect(() => {
+        ListaTalonarios()
+        // eslint-disable-next-line
+    }, [])
 
     const toggle = () => {
         setNvoTalBool(!nvoTalBool)
+    }
+
+    const ListaTalonarios = async () => {
+        await axios.get(UrlNodeServer.libroBcoDir.sub.talonarios, {
+            headers:
+                { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
+        })
+            .then(res => {
+                const respuesta = res.data
+                const status = parseInt(respuesta.status)
+                if (status === 200) {
+                    const listaBol = respuesta.body.listadoBol
+                    const listaChq = respuesta.body.listadoChq
+                    if (listaBol.length > 0) {
+                        setListaBol(
+                            // eslint-disable-next-line
+                            listaBol.map((item, key) => {
+                                return (
+                                    <FilaBolChq
+                                        key={key}
+                                        id={key}
+                                        item={item}
+                                        setActividadStr={setActividadStr}
+                                        nvaActCall={nvaActCall}
+                                        setNvaActCall={setNvaActCall}
+                                        alertar={alertar}
+                                        setAlertar={setAlertar}
+                                        setMsgStrong={setMsgStrong}
+                                        setMsgGralAlert={setMsgGralAlert}
+                                        setSuccessAlert={setSuccessAlert}
+                                        setCall={setCall}
+                                        call={call}
+                                        setEsperar={setLoading}
+                                    />
+                                )
+                            })
+                        )
+                    }
+                    if (listaChq.length > 0) {
+                        setListaChq(
+                            // eslint-disable-next-line
+                            listaChq.map((item, key) => {
+                                return (
+                                    <FilaBolChq
+                                        key={key}
+                                        id={key}
+                                        item={item}
+                                        setActividadStr={setActividadStr}
+                                        nvaActCall={nvaActCall}
+                                        setNvaActCall={setNvaActCall}
+                                        alertar={alertar}
+                                        setAlertar={setAlertar}
+                                        setMsgStrong={setMsgStrong}
+                                        setMsgGralAlert={setMsgGralAlert}
+                                        setSuccessAlert={setSuccessAlert}
+                                        setCall={setCall}
+                                        call={call}
+                                        setEsperar={setLoading}
+                                    />
+                                )
+                            })
+                        )
+                    }
+                } else {
+                    setMsgStrong("Hubo un error inesperado!")
+                    setMsgGralAlert("")
+                    setSuccessAlert(false)
+                    setAlertar(!alertar)
+                }
+            })
+            .catch(() => {
+                setMsgStrong("Hubo un error inesperado!")
+                setMsgGralAlert("")
+                setSuccessAlert(false)
+                setAlertar(!alertar)
+            })
     }
 
     return (

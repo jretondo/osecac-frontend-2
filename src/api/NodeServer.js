@@ -14,6 +14,7 @@ const conciliacion = host + "/conciliacion"
 const proveedores = host + "/proveedores"
 const actividadApp = host + "/actividadApp"
 const libroBco = host + "/libroBco"
+const prestadores = host + "/prestadores"
 
 const userDir = {
     user,
@@ -29,6 +30,13 @@ const actividadAppDir = {
 
 const permissionsDir = {
     permissions
+}
+
+const prestadoresDir = {
+    prestadores,
+    sub: {
+        lista: prestadores + "/list"
+    }
 }
 
 const authDir = {
@@ -105,7 +113,8 @@ const UrlNodeServer = {
     conciliacionDir,
     proveedoresDir,
     actividadAppDir,
-    libroBcoDir
+    libroBcoDir,
+    prestadoresDir
 }
 
 export default UrlNodeServer
