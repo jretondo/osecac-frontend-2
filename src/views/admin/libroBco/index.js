@@ -19,7 +19,7 @@ const Index = () => {
     const [successAlert, setSuccessAlert] = useState(false)
     const [nvaActCall, setNvaActCall] = useState(false)
     const [actividadStr, setActividadStr] = useState("")
-
+    const [actualizar, setActualizar] = useState(false)
     const [call, setCall] = useState(false)
     const { loading, error } = UseSecureRoutes(
         UrlNodeServer.routesDir.sub.libroBanco,
@@ -61,9 +61,6 @@ const Index = () => {
                     alertar={alertar}
                 />
                 <Container className="mt--7" fluid>
-
-                    <FormsLibro />
-
                     <ChqBolComp
                         setMsgStrong={setMsgStrong}
                         setMsgGralAlert={setMsgGralAlert}
@@ -73,8 +70,12 @@ const Index = () => {
                         setActividadStr={setActividadStr}
                         alertar={alertar}
                         setAlertar={setAlertar}
+                        actualizar={actualizar}
                     />
-
+                    <FormsLibro
+                        actualizar={actualizar}
+                        setActualizar={setActualizar}
+                    />
                 </Container>
             </>
         )

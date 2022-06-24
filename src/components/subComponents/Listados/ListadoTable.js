@@ -6,7 +6,7 @@ import {
 const ListadoTable = (props) => {
 
     return (
-        <Table className="align-items-center table-flush" responsive>
+        <Table className="align-items-center table-flush" style={props.style} responsive>
             <thead className="thead-light">
                 <tr>
                     {

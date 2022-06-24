@@ -1,6 +1,6 @@
 let host = ""
 if (process.env.NODE_ENV === "development") {
-    host = "http://172.21.10.60:3001/api"
+    host = "http://172.21.10.150:3001/api"
 } else {
     host = "http://172.21.10.25:3000/api"
 }
@@ -15,6 +15,7 @@ const proveedores = host + "/proveedores"
 const actividadApp = host + "/actividadApp"
 const libroBco = host + "/libroBco"
 const prestadores = host + "/prestadores"
+const transferencias = host + "/transferencias"
 
 const userDir = {
     user,
@@ -69,7 +70,8 @@ const routesDir = {
         rendicionesCoseguro: routes + "/rendicionesCoseguro",
         fiscalizacion: routes + "/fiscalizacion",
         dashboard: routes + "/dashboard",
-        changePass: routes + "/changePass"
+        changePass: routes + "/changePass",
+        transferencias: routes + "/transferencias"
     }
 }
 
@@ -82,10 +84,20 @@ const conciliacionDir = {
     }
 }
 
+const transferenciasDir = {
+    transferencias: transferencias,
+    sub: {
+        transferencias: transferencias + "/transf",
+        download: transferencias + "/download/",
+        excel: transferencias + "/excel/"
+    }
+}
+
 const extractosDir = {
     extractos,
     sub: {
         process: extractos + "/process",
+        replaceImp: extractos + "/replaceImp",
         list: extractos + "/list/",
         download: extractos + "/download/",
         removeId: extractos + "/removeId/",
@@ -100,7 +112,9 @@ const libroBcoDir = {
     libroBco,
     sub: {
         talonarios: libroBco + "/talonarios",
-        verificaTalonario: libroBco + "/talonarios/verifica"
+        verificaTalonario: libroBco + "/talonarios/verifica",
+        siguientesTal: libroBco + "/talonarios/siguientes",
+        verificaNum: libroBco + "/talonarios/verificaNum"
     }
 }
 
@@ -114,7 +128,8 @@ const UrlNodeServer = {
     proveedoresDir,
     actividadAppDir,
     libroBcoDir,
-    prestadoresDir
+    prestadoresDir,
+    transferenciasDir
 }
 
 export default UrlNodeServer

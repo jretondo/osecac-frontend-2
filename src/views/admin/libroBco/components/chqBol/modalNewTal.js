@@ -2,7 +2,19 @@ import UrlNodeServer from 'api/NodeServer'
 import axios from 'axios'
 import formatMoney from 'Function/NumberFormat'
 import React, { useEffect, useState } from 'react'
-import { Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'reactstrap'
+import {
+    Col,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    Row,
+    Spinner
+} from 'reactstrap'
 
 const ModalNewTal = ({
     toggle,
@@ -14,7 +26,9 @@ const ModalNewTal = ({
     setNvaActCall,
     setActividadStr,
     alertar,
-    setAlertar
+    setAlertar,
+    call,
+    setCall
 }) => {
     const [loading, setLoading] = useState(false)
     const [desde, setDesde] = useState("")
@@ -82,6 +96,7 @@ const ModalNewTal = ({
                     setAlertar(!alertar)
                     setActividadStr("El usuario ha cargado el siguiente rango " + desde + " - " + hasta + " de " + tipoStr)
                     setNvaActCall(nvaActCall)
+                    setCall(!call)
                     ResetFormNvo()
                 } else {
                     setMsgStrong("Hubo un error inesperado! ")
@@ -117,7 +132,7 @@ const ModalNewTal = ({
                                 <Col md="12">
                                     <FormGroup>
                                         <Label for="tipoTxt">Tipo</Label>
-                                        <Input type="select" id="tipoTxt" onChange={e => setTipoDoc(e.target.value)}>
+                                        <Input type="select" id="tipoTxt" value={tipoDoc} onChange={e => setTipoDoc(e.target.value)}>
                                             <option value={0}>Chequeras</option>
                                             <option value={1}>Boletas</option>
                                         </Input>

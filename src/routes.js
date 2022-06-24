@@ -1,12 +1,14 @@
 import index from "views/admin/dashboard"
 import extractosBco from 'views/admin/extractosBco'
 import conciliacionBco from 'views/admin/conciliacionBco'
+import transferencias from 'views/admin/transferencias'
 import adminUsu from 'views/admin/adminUsu'
 import libroBco from 'views/admin/libroBco'
 import pagoAgencias from 'views/admin/pagoAgencias'
 import pagoPrestadores from 'views/admin/pagoPrestadores'
 import pagoProveedores from 'views/admin/pagoProveedores'
 import rendicionesCoseguro from 'views/admin/rendicionesCoseguro'
+import remitosDep from 'views/admin/remitosDep'
 
 let routes = [
   {
@@ -34,12 +36,28 @@ let routes = [
     id: 7
   },
   {
+    path: "/transferencias",
+    name: "Transferencias a Banco de Córdoba",
+    icon: "ni ni-tag text-red",
+    component: transferencias,
+    layout: process.env.PUBLIC_URL + "/admin",
+    id: 12
+  },
+  {
     path: "/libroBco",
     name: "Libro Banco",
     icon: "ni ni-tag text-red",
     component: libroBco,
     layout: process.env.PUBLIC_URL + "/admin",
     id: 2
+  },
+  {
+    path: "/remitosDep",
+    name: "Remitos de Depositos",
+    icon: "ni ni-tag text-red",
+    component: remitosDep,
+    layout: process.env.PUBLIC_URL + "/admin",
+    id: 11
   },
   {
     path: "/pagoAgencias",

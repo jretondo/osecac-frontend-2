@@ -1,16 +1,13 @@
 import ButtonToggle from 'components/subComponents/buttonToggle/buttonToggle1'
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, CardHeader, Col, FormGroup, Input, Label, Row } from 'reactstrap'
-import Anulacion from './anulacion'
-import CrTransf from './crTransf'
-import Depositos from './depositos'
-import Embargos from './embargos'
-import Pagos from './pagos'
-import Rechazo from './rechazo'
+import BuscarMov from './components/buscarMov'
+import NewMov from './components/newMov'
+
 
 const FormsLibro = () => {
-    const [nvoMovBool, setNvoMovBool] = useState(true)
-    const [tipo, setTipo] = useState(0)
+    const [nvoMovBool, setNvoMovBool] = useState(false)
+
     const [fecha, setFecha] = useState("")
     const [descrSm, setDescrSm] = useState("")
     const [descrLgBool, setDescrLgBool] = useState(false)
@@ -24,10 +21,6 @@ const FormsLibro = () => {
     const [retGcias, setRetGcias] = useState("")
     const [tipoLibro, setTipoLibro] = useState(0)
     const [windowToggle, setWindowToggle] = useState(false)
-
-    useEffect(() => {
-        console.log(`tipo`, tipo)
-    }, [tipo])
 
     if (windowToggle) {
         return (
@@ -46,7 +39,7 @@ const FormsLibro = () => {
                             {
                                 nvoMovBool ?
                                     <h3>Nuevo Movimiento en Libro Banco Córdoba</h3> :
-                                    <h2 className="mb-0">Libro Banco</h2>
+                                    <h2 className="mb-0">Libro Banco - Consulta </h2>
                             }
                         </Col>
                         <Col md="4" style={{ textAlign: "right" }} >
@@ -58,57 +51,24 @@ const FormsLibro = () => {
                                             setNvoMovBool(false)
                                         }}
                                         className="btn btn-danger">
-                                        X
+                                        <i className="ni ni-ungroup" style={{ fontSize: "16px" }} aria-hidden="true"></i> {" "} Consulta de Movimientos
                                     </button> :
                                     <button
                                         onClick={e => {
                                             e.preventDefault()
                                             setNvoMovBool(true)
                                         }}
-                                        className="btn btn-primary">
+                                        className="btn btn-danger">
+                                        <i className="ni ni-fat-add" style={{ fontSize: "16px" }} aria-hidden="true"></i> {" "}
                                         Nuevo Movimiento
                                     </button>
                             }
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md="12">
-                            <FormGroup>
-                                <Label for="exampleSelect">Tipo de Movimiento</Label>
-                                <Input onChange={(e) => setTipo(e.target.value)} type="select" name="select" id="exampleSelect">
-                                    <option value={0}>Pagos</option>
-                                    <option value={1}>Depositos</option>
-                                    <option value={2}>Créd. Transferencia</option>
-                                    <option value={3}>Anulación de Comprobantes</option>
-                                    <option value={4}>Embargos a Cta. Cte.</option>
-                                    <option value={5}>Rechazo de Déposito</option>
-                                </Input>
-                            </FormGroup>
-                        </Col>
-                    </Row>
                     {
-                        parseInt(tipo) === 0 ?
-                            <Pagos /> : null
-                    }
-                    {
-                        parseInt(tipo) === 1 ?
-                            <Depositos /> : null
-                    }
-                    {
-                        parseInt(tipo) === 2 ?
-                            <CrTransf /> : null
-                    }
-                    {
-                        parseInt(tipo) === 3 ?
-                            <Anulacion /> : null
-                    }
-                    {
-                        parseInt(tipo) === 4 ?
-                            <Embargos /> : null
-                    }
-                    {
-                        parseInt(tipo) === 5 ?
-                            <Rechazo /> : null
+                        nvoMovBool ?
+                            <NewMov /> :
+                            <BuscarMov />
                     }
                 </CardBody>
             </Card>)

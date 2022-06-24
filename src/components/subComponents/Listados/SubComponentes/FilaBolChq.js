@@ -96,7 +96,7 @@ const FilaProducto = ({
                     <DropdownMenu className="dropdown-menu-arrow" right>
                         <DropdownItem
                             href="#pablo"
-                            onClick={e => EliminarTalonario(e, id)}
+                            onClick={e => EliminarTalonario(e, item.id)}
                         >
                             <i className="fas fa-trash"></i>
                             Eliminar Rango

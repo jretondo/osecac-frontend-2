@@ -1,6 +1,6 @@
 import UrlNodeServer from '../../../../../api/NodeServer'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CardBody, Col, Form, FormFeedback, FormGroup, Input, Label, Row, Spinner } from 'reactstrap'
 import swal from 'sweetalert'
 import BtnDisabled from '../../../../../assets/img/icons/btn-disabled.png'

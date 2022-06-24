@@ -6,6 +6,7 @@ import {
     CardHeader
 } from "reactstrap";
 import ListaChqBol from './listaChqBol'
+import PendientesChqBol from './pendientes';
 
 const ChqBol = ({
     setMsgStrong,
@@ -15,13 +16,14 @@ const ChqBol = ({
     setNvaActCall,
     setActividadStr,
     alertar,
-    setAlertar
+    setAlertar,
+    actualizar
 }) => {
     const [windowToggle, setWindowToggle] = useState(false)
 
     if (windowToggle) {
         return (
-            <Card className="shadow" style={{ marginTop: "35px" }}>
+            <Card className="shadow" style={{ marginBottom: "20px" }}>
                 <CardHeader className="border-0">
                     <ButtonToggle
                         symbol={windowToggle ? "-" : "+"}
@@ -47,7 +49,7 @@ const ChqBol = ({
         )
     } else {
         return (
-            <Card className="shadow" style={{ marginTop: "35px" }}>
+            <Card className="shadow" style={{ marginBottom: "20px" }}>
                 <CardHeader className="border-0">
                     <ButtonToggle
                         symbol={windowToggle ? "-" : "+"}
@@ -55,9 +57,12 @@ const ChqBol = ({
                         toogle={windowToggle}
                         setToggle={setWindowToggle}
                     />
-                    <h2 className="mb-0" style={{ textAlign: "center" }}>Chequeras y Boletas (talonarios)</h2>
+                    <PendientesChqBol
+                        actualizar={actualizar}
+                    />
                 </CardHeader>
-            </Card>)
+            </Card>
+        )
     }
 }
 

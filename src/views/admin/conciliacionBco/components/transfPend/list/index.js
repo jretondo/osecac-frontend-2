@@ -229,7 +229,8 @@ const ListSinMov = ({
                 <Form onSubmit={e => {
                     e.preventDefault();
                     listar();
-                }}>
+                }}
+                >
                     <Row>
                         <Col md="8">
                             <Row form style={{ textAlign: "left" }}>

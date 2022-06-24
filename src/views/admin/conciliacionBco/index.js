@@ -8,6 +8,7 @@ import {
 import { Redirect } from "react-router-dom"
 import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
 import TransfPend from './components/transfPend'
+import IngresosTransf from './components/ingresosTransf'
 import { UseActivity } from "Hooks/UseActivity";
 import AlertaForm from '../../../components/subComponents/alerts/Alerta1'
 
@@ -61,6 +62,18 @@ const Index = () => {
                 />
                 <Container className="mt--7" fluid>
                     <TransfPend
+                        setActividadStr={setActividadStr}
+                        nvaActCall={nvaActCall}
+                        setNvaActCall={setNvaActCall}
+                        alertar={alertar}
+                        setAlertar={setAlertar}
+                        setMsgStrong={setMsgStrong}
+                        setMsgGralAlert={setMsgGralAlert}
+                        setSuccessAlert={setSuccessAlert}
+                        call={call}
+                        setCall={setCall}
+                    />
+                    <IngresosTransf
                         setActividadStr={setActividadStr}
                         nvaActCall={nvaActCall}
                         setNvaActCall={setNvaActCall}

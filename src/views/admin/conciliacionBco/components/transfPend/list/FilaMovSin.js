@@ -10,6 +10,7 @@ import ModalAddObs from './modalAddObs'
 import moment from 'moment'
 import UrlNodeServer from '../../../../../../api/NodeServer'
 import axios from 'axios'
+import ModalDepTransf from './modalDep'
 
 const FilaMovSin = ({
     id,
@@ -28,9 +29,14 @@ const FilaMovSin = ({
 }) => {
 
     const [modal, setModal] = useState(false)
+    const [modal1, setModal1] = useState(false)
 
     const AddObs = () => {
         setModal(true)
+    }
+
+    const conciliar = () => {
+        setModal1(true)
     }
 
     const ChangeTypeMov = async (marcar) => {
@@ -91,7 +97,7 @@ const FilaMovSin = ({
                     $ {formatMoney(item.monto)}
                 </td>
                 <td>
-                    {item.obs !== null ? <i className="fas fa-eye"></i> : null}
+                    {item.obs === "" || item.obs === null ? null : <i className="fas fa-eye"></i>}
                 </td>
                 <td className="text-right">
                     <UncontrolledDropdown>
@@ -110,7 +116,11 @@ const FilaMovSin = ({
                                 href="#pablo"
                                 onClick={e => {
                                     e.preventDefault();
-                                    ChangeTypeMov(item.conciliado);
+                                    if (item.conciliado) {
+                                        ChangeTypeMov(true)
+                                    } else {
+                                        conciliar();
+                                    }
                                 }}
                             >
                                 <i className="fas fa-check"></i>
@@ -134,6 +144,21 @@ const FilaMovSin = ({
                 modal={modal}
                 setModal={setModal}
                 item={item}
+                setActividadStr={setActividadStr}
+                nvaActCall={nvaActCall}
+                setNvaActCall={setNvaActCall}
+                alertar={alertar}
+                setAlertar={setAlertar}
+                setMsgStrong={setMsgStrong}
+                setMsgGralAlert={setMsgGralAlert}
+                setSuccessAlert={setSuccessAlert}
+                setCall={setCall}
+                call={call}
+            />
+            <ModalDepTransf
+                item={item}
+                modal={modal1}
+                setModal={setModal1}
                 setActividadStr={setActividadStr}
                 nvaActCall={nvaActCall}
                 setNvaActCall={setNvaActCall}

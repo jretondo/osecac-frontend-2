@@ -5,6 +5,8 @@ import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
 
+import ChqBolProvider from './context/chqBol/Provider';
+
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 
@@ -15,7 +17,9 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path={process.env.PUBLIC_URL + "/auth"} render={props => <AuthLayout {...props} />} />
-      <Route path={process.env.PUBLIC_URL + "/admin"} render={props => <AdminLayout {...props} />} />
+
+      <Route path={process.env.PUBLIC_URL + "/admin"} render={props => <ChqBolProvider> <AdminLayout {...props} /> </ChqBolProvider>} />
+
       <Redirect from={process.env.PUBLIC_URL + "/"} to={process.env.PUBLIC_URL + "/auth/login"} />
       {
         process.env.NODE_ENV === "development" ?
