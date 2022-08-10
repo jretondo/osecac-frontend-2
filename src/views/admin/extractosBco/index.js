@@ -19,6 +19,7 @@ import { UseSecureRoutes } from '../../../Hooks/UseSecureRoutes'
 import ListaExtractos from './components/ListaExtractos'
 import ListaMov from './components/ListaMov'
 import ExcelProcess from './components/excelProcess'
+import ExcelProcessForm1 from './components/excelProcess2'
 import MovSinIdentificar from "./components/movSin";
 import BuscarMov from "./components/buscarMov";
 import ReplaceImpGstos from "./components/replaceImpGstos";
@@ -156,6 +157,19 @@ const ProductsItems = () => {
                         <Row style={{ marginTop: "30px" }}>
                             <Col>
                                 <ExcelProcess
+                                    setMsgStrong={setMsgStrong}
+                                    setMsgGralAlert={setMsgGralAlert}
+                                    setSuccessAlert={setSuccessAlert}
+                                    setAlertar={setAlertar}
+                                    alertar={alertar}
+                                    setCall2={setCall2}
+                                    call2={call2}
+                                />
+                            </Col>
+                        </Row>
+                        <Row style={{ marginTop: "30px" }}>
+                            <Col>
+                                <ExcelProcessForm1
                                     setMsgStrong={setMsgStrong}
                                     setMsgGralAlert={setMsgGralAlert}
                                     setSuccessAlert={setSuccessAlert}

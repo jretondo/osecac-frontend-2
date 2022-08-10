@@ -27,6 +27,9 @@ const ModalGstos = ({
                     <FormGroup>
                         <Label style={{ fontWeight: "bold", color: "#775b5b" }}>{`Impuestos: $${data.impuestos}`} </Label>
                     </FormGroup>
+                    <FormGroup>
+                        <Label style={{ fontWeight: "bold", color: "#775b5b" }}>{`SIRCREB: $${data.sircreb}`} </Label>
+                    </FormGroup>
                 </ModalBody>
                 <ModalFooter>
                     <button

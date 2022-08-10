@@ -97,6 +97,8 @@ const extractosDir = {
     extractos,
     sub: {
         process: extractos + "/process",
+        process1: extractos + "/process1",
+        processDef: extractos + "/processDef",
         replaceImp: extractos + "/replaceImp",
         list: extractos + "/list/",
         download: extractos + "/download/",

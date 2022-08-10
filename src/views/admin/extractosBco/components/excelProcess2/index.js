@@ -40,7 +40,7 @@ const rejectStyle = {
     borderColor: '#ff1744'
 };
 
-const ExcelProcessForm = ({
+const ExcelProcessForm1 = ({
     setMsgStrong,
     setMsgGralAlert,
     setSuccessAlert,
@@ -104,7 +104,7 @@ const ExcelProcessForm = ({
         const formData = new FormData();
         setLoading(true)
         formData.append(fileName, archivo);
-        await fetch(UrlNodeServer.extractosDir.sub.process, {
+        await fetch(UrlNodeServer.extractosDir.sub.process1, {
             method: 'POST',
             body: formData,
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('user-token') }
@@ -143,7 +143,7 @@ const ExcelProcessForm = ({
                         toogle={windowToggle}
                         setToggle={setWindowToggle}
                     />
-                    <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                    <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Banca Empresa</h2>
                 </CardHeader>
             </Card>
         )
@@ -170,7 +170,7 @@ const ExcelProcessForm = ({
                                 toogle={windowToggle}
                                 setToggle={setWindowToggle}
                             />
-                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Banca Empresa</h2>
                         </CardHeader>
                         <Row style={{ paddingTop: "20px", paddingBottom: "20px" }}>
                             <Col md="12" style={{ textAlign: "center" }}>
@@ -211,7 +211,7 @@ const ExcelProcessForm = ({
                                 toogle={windowToggle}
                                 setToggle={setWindowToggle}
                             />
-                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Bancon</h2>
+                            <h2 className="mb-0" style={{ textAlign: "center" }}>Importar Excel de Banca Empresa</h2>
                         </CardHeader>
                         <StyledDropzone />
                         <Row>
@@ -223,7 +223,7 @@ const ExcelProcessForm = ({
 
                                 }} >Elija un Archivo</button>
                                 <br />
-                                <input type="file" placeholder="Selecciones archivo" id="selectFile" style={{ visibility: "hidden" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.csv" onChange={e => {
+                                <input type="file" placeholder="Selecciones archivo" id="selectFile" style={{ visibility: "hidden" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onChange={e => {
                                     setArchivo(e.target.files[0])
                                     setFileNAme(e.target.files[0].name)
                                     setExcelSelect(true)
@@ -237,4 +237,4 @@ const ExcelProcessForm = ({
     }
 }
 
-export default ExcelProcessForm
+export default ExcelProcessForm1
